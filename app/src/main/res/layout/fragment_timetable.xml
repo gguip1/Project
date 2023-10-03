@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TimeTableFragment">
+
+
+    <!-- TODO: Update blank fragment layout -->
+    <TableLayout
+        android:id="@+id/timeTable"
+        android:layout_width="match_parent"
+        android:layout_height="604dp"
+        android:stretchColumns="*">
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/blank"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text=""
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/monDay"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="월요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/tuesDay"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="화요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/wednesday"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="수요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/thursDay"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="목요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/friDay"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="금요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/first"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="1교시"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/f00"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="월요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/f01"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="화요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/f02"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="수요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/f03"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="목요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/f04"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="금요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/second"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="2교시"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/s00"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="월요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/s01"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="화요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/s02"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="수요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/s03"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="목요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/s04"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="금요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/third"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="3교시"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/t00"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="월요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/t01"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="화요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/t02"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="수요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/t03"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="목요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/t04"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="금요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/fourth"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="4교시"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/f10"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="월요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/f11"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="화요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/f12"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="수요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/f13"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="목요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/f14"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="금요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/fifth"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="5교시"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/f20"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="월요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/f21"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="화요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/f22"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="수요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/f23"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="목요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/f24"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="금요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/sixth"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="6교시"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/s10"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="월요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/s11"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="화요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/s12"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="수요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/s13"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="목요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/s14"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="금요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/seventh"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="7교시"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/s20"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="월요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/s21"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="화요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/s22"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="수요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/s23"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="목요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/s24"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="금요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/eighth"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="8교시"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/e00"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="월요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/e01"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="화요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/e02"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="수요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/e03"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="목요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <TextView
+                android:id="@+id/e04"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="금요일"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="29dp" />
+        </TableRow>
+
+        <TableRow android:layout_height="203dp">
+
+            <TextView
+                android:layout_span="6"
+                android:id="@+id/testText"
+                android:layout_width="292dp"
+                android:layout_height="159dp"
+                android:text=""
+                android:textAlignment="center" />
+        </TableRow>
+    </TableLayout>
+
+</FrameLayout>
