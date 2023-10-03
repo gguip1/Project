@@ -63,7 +63,7 @@ public class TimeTableFragment extends Fragment {
         TextView tv = view.findViewById(R.id.testText);
         String message = this.getArguments().getString("msg");
         message = message.replace("[{", "").replace("]","").replace("}","").replace("\"","").replace(":","").replace("userID", "").replace("userPassword", "").replace("phoneNumber", "");
-        String[] array = message.split(",");
+        String[] array = message.split(","); // 받아온 데이터 분리
         tv.setText(array[0] + "\n" + array[1] + "\n" + array[2]);
         // Inflate the layout for this fragment
         return view;
