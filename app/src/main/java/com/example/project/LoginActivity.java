@@ -1,5 +1,6 @@
 package com.example.project;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -50,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextID = (EditText) findViewById(R.id.userID_Text);
         editTextPassword = (EditText) findViewById(R.id.password_Text);
 
-        Button buttonInsert = (Button)findViewById(R.id.signUp_Button);
+        Button buttonInsert = (Button)findViewById(R.id.login_Button);
         buttonInsert.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -67,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                     fetchData.execute("http://" + IP_ADDRESS + "/timetable.php", ID);
                 } // 로그인 성공
                 else{
-                    //로그인 실패시 메시지
+                    Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_LONG).show();
                 }
                 editTextID.setText("");
                 editTextPassword.setText("");
@@ -200,13 +202,13 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
             if (result.startsWith("HTTP Error")) {
                 Log.e("HTTP Error", result);
             } else {
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 intent.putExtra("dataFromServer", result);
                 startActivity(intent);
+                finish();
             }
         }
     }
