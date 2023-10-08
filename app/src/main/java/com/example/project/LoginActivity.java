@@ -27,7 +27,7 @@ import java.net.URL;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static String IP_ADDRESS = ""; //서버 주소
+    private static String IP_ADDRESS = "192.168.45.142"; //서버 주소
     private static String TAG = "phpsignup";
 
     private EditText editTextID;
@@ -62,13 +62,12 @@ public class LoginActivity extends AppCompatActivity {
                 String Password = editTextPassword.getText().toString();
 
                 InsertData task = new InsertData();
-                task.execute("http://" + IP_ADDRESS + "/signup.php", ID, Password, phoneNumber);
-
+                task.execute("http://" + IP_ADDRESS + "/signup2.php", ID, Password, phoneNumber);
                 if(checkLogin == "Success"){
-                    FetchData fetchData = new FetchData();
-                    fetchData.execute("http://" + IP_ADDRESS + "/timetable.php", ID);
+//                    FetchData fetchData = new FetchData();
+//                    fetchData.execute("http://" + IP_ADDRESS + "/timetable.php", ID);
                 } // 로그인 성공
-                else{
+                else {
                     Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_LONG).show();
                 }
                 editTextID.setText("");
@@ -93,9 +92,26 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
+            Log.d(TAG, result);
+            String msg = "" + result;
+
+            if (msg.equals(" 0") || msg.equals(" 1") || msg.equals(" 2")){
+                Toast.makeText(getApplicationContext(), "로그인 정보를 입력해주세요.", Toast.LENGTH_LONG).show();
+            }
+            else if(msg.equals(" FAIL")){
+                Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_LONG).show();
+            }
+            else if(msg.substring(0, 8).equals(" SUCCESS")){
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.putExtra("dataFromServer", result.substring(8));
+                startActivity(intent);
+                finish();
+                Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_LONG).show();
+            }
+            /** 데이터를 가져올때 SUCCESS라는 성공 메시지를 포함해서 가져오게 됨.
+             * SUCCESS를 찾기 위해 substring으로 쪼갰기 때문에 FAIL 같은 다른 값이 나올때 문자열의 문자가 8개가 안되기 때문에 오류가 뜸 그래서 else if를 FAIL 먼저 검사하게 함. (혹시라도 다른 값이 입력이 되면 문제가 있을 수 있음)
+             * 데이터는 SUCCESS 이후를 잘라서 가져올 예정**/
             progressDialog.dismiss();
-            //editTextID.setText(result);
-            Log.d(TAG, "POST response  - " + result);
         }
 
 
@@ -159,57 +175,6 @@ public class LoginActivity extends AppCompatActivity {
                 return new String("Error: " + e.getMessage());
             }
 
-        }
-    }
-    private class FetchData extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-            String serverURL = params[0];
-            String userID = params[1];
-            String postParameters = "userID=" + userID;
-            try {
-                URL url = new URL(serverURL);
-
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                outputStream.write(postParameters.getBytes("UTF-8"));
-                outputStream.flush();
-                outputStream.close();
-
-                httpURLConnection.setRequestMethod("GET");
-
-                int responseCode = httpURLConnection.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
-                    StringBuilder response = new StringBuilder();
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        response.append(line);
-                    }
-                    reader.close();
-                    return response.toString();
-                } else {
-                    return "HTTP Error: " + responseCode;
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                return "Error: " + e.getMessage();
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            if (result.startsWith("HTTP Error")) {
-                Log.e("HTTP Error", result);
-            } else {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.putExtra("dataFromServer", result);
-                startActivity(intent);
-                finish();
-            }
         }
     }
 }

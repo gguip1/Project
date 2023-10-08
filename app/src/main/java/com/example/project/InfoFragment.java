@@ -73,7 +73,7 @@ public class InfoFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        /** 데이터 초기화 필요 **/
+        /**  **/
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
         getActivity().finish();
