@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TimeTableFragment"
-    android:background="#4C7AFF">
+    android:background="#FBF4F6">
 
 
     <!-- TODO: Update blank fragment layout -->
     <TableLayout
 
-        android:background="@drawable/table_design"
+        android:background="@drawable/timetable_design"
         android:id="@+id/timeTable"
         android:layout_width="match_parent"
         android:layout_height="449dp"
@@ -599,8 +599,14 @@
     <TextView
         android:id="@+id/timetable_Title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="76dp"
         android:text="시간표"
         android:textAlignment="center" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

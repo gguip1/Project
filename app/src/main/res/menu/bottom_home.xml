@@ -15,7 +15,7 @@
         android:id="@+id/setting"
         android:tooltipText="Send an email"
         android:enabled="true"
-        android:icon="@drawable/ic_settings_bottomnav"
+        android:icon="@drawable/ic_timetable_bottomnav"
         android:title=""
         app:showAsAction="always"
         />

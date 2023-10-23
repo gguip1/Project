@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         final int[] before = {0};
 
+        //데이터
         Bundle bundle = new Bundle();
         Intent secondIntent = getIntent();
         String msg = secondIntent.getStringExtra("dataFromServer");
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         navigationBarView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                // 메인 액티비티 하단 네비게이션 바 화면 전환
                 if (item.getItemId() == R.id.home) {
                     getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.to_left, R.anim.no_animation).replace(R.id.containers, homeFragment).commit();
                     before[0] = 0;

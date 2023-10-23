@@ -4,10 +4,17 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,10 +67,33 @@ public class TimeTableFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_timetable, container, false);
+        TextView test = (TextView) view.findViewById(R.id.timetable_Title);
         String message = this.getArguments().getString("msg");
-        message = message.replace("[{", "").replace("]","").replace("}","").replace("\"","").replace(":","").replace("userID", "").replace("userPassword", "").replace("phoneNumber", "");
-        String[] array = message.split(","); // 받아온 데이터 분리
+
+        // 입력된 JSON 형태의 String을 HashMap으로 변환
+
+        HashMap<String, String> data;
+        try {
+            data = paramMap(message);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        //키 값을 입력해서 값을 보이면 됨
+        test.setText("pw : " + data.get("pw"));
+
         // Inflate the layout for this fragment
         return view;
+    }
+
+    public HashMap<String, String> paramMap(Object object) throws JSONException {
+        HashMap<String, String> hashmap = new HashMap<String, String>();
+        JSONObject json = new JSONObject(String.valueOf(object));
+        Iterator i = json.keys();
+        while(i.hasNext()){
+            String k = i.next().toString();
+            hashmap.put(k, json.getString(k));
+        }
+        return hashmap;
     }
 }

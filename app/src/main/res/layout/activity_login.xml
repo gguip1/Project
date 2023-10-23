@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="#4C7AFF"
+        android:background="#813C4F"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="110dp"></View>
 
@@ -21,8 +21,9 @@
         android:layout_width="250dp"
         android:layout_height="42dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/btn_default"
+        android:background="@drawable/btn_login_activity"
         android:text="로그인"
+        android:textColor="#ffffff"
         app:layout_constraintEnd_toEndOf="@+id/password_Text"
         app:layout_constraintTop_toBottomOf="@+id/password_Text" />
 
@@ -30,22 +31,23 @@
         android:id="@+id/password_Text"
         android:layout_width="250dp"
         android:layout_height="42dp"
-        android:background="@drawable/password_edittext"
+        android:background="@drawable/edittext_pwd_login_activity"
         android:ems="10"
         android:hint="비밀번호"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="@+id/login_Background"
-        app:layout_constraintEnd_toEndOf="@+id/userID_Text"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/login_Background" />
+        app:layout_constraintTop_toTopOf="@+id/login_Background"
+        app:layout_constraintVertical_bias="0.637" />
 
     <EditText
         android:id="@+id/userID_Text"
         android:layout_width="250dp"
         android:layout_height="42dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/id_edittext"
+        android:background="@drawable/edittext_uid_login_activity"
         android:ems="10"
         android:hint="아이디"
         android:inputType="text"

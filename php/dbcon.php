@@ -1,8 +1,8 @@
 <?php
-    $host = 'localhost';
-    $username = 'root'; # MySQL 계정 아이디
-    $password = ''; # MySQL 계정 패스워드
-    $dbname = 'signup';  # DATABASE 이름
+    $host = 'rldjqdus05.cafe24.com';
+    $username = 'rldjqdus05'; # MySQL 계정 아이디
+    $password = 'q1w2e3r4!'; # MySQL 계정 패스워드
+    $dbname = 'rldjqdus05';  # DATABASE 이름
 
 
     $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
@@ -19,7 +19,8 @@
     $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $con->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-    if(function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) { 
+    // if(function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) { 
+        if(ini_get('magic_quotes_gpc')) { 
         function undo_magic_quotes_gpc(&$array) { 
             foreach($array as &$value) { 
                 if(is_array($value)) { 

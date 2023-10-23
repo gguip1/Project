@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="#4C7AFF">
+    android:background="#FBF4F6">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_gravity="bottom"
-        android:background="@drawable/round_bottomnav"
+        android:background="@drawable/bottomnav_style"
         android:visibility="visible"
         app:itemIconSize="32dp"
         app:labelVisibilityMode="selected"
