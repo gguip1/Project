@@ -99,8 +99,12 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
                 Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_LONG).show();
             }
-            else{ // 기타
-                Toast.makeText(getApplicationContext(), "으아아앍", Toast.LENGTH_LONG).show();
+            else if(msg.equals(" Can't access timetable_info")){ // 기타
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.putExtra("dataFromServer", result);
+                startActivity(intent);
+                finish();
+                Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_LONG).show();
             }
             /** 1. String으로 들어오는 result를 HashMap으로 변환 고려 **/
             /** 2. 데이터를 가져올때 SUCCESS라는 성공 메시지를 포함해서 가져오게 됨. **/

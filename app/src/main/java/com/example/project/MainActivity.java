@@ -39,10 +39,11 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.containers, homeFragment).commit();
 
         NavigationBarView navigationBarView = findViewById(R.id.bottom_navigation);
+
+        // 메인 액티비티 하단 네비게이션 바 화면 전환
         navigationBarView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                // 메인 액티비티 하단 네비게이션 바 화면 전환
                 if (item.getItemId() == R.id.home) {
                     getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.to_left, R.anim.no_animation).replace(R.id.containers, homeFragment).commit();
                     before[0] = 0;
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return false;
             }
-        });
-
+        }
+        );
     }
 }
