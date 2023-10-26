@@ -69,13 +69,13 @@ public class TimeTableFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_timetable, container, false);
         TextView err_msg = (TextView) view.findViewById(R.id.timetable_Title);
-        String input_data = this.getArguments().getString("msg");
-        Log.d("asdf", input_data);
-        if(input_data.equals(" Can't access timetable_info")){
+        String input_data = this.getArguments().getString("data");
+        if(input_data.equals(" fail:2")){
             err_msg.setText("시간표 데이터를 가져올 수 없습니다.");
         }
         else{
             String[] data = JsonParsing(input_data);
+
             // 입력된 JSON 형태의 String을 HashMap으로 변환
             HashMap<String, String> first;
             HashMap<String, String> second;
@@ -85,7 +85,7 @@ public class TimeTableFragment extends Fragment {
             HashMap<String, String> sixth;
             HashMap<String, String> seventh;
             HashMap<String, String> eighth;
-            HashMap<String, String> nineth;
+            HashMap<String, String> ninth;
             HashMap<String, String> tenth;
             try {
                 first = paramMap(data[0]);
@@ -96,10 +96,9 @@ public class TimeTableFragment extends Fragment {
                 sixth = paramMap(data[5]);
                 seventh = paramMap(data[6]);
                 eighth = paramMap(data[7]);
-                nineth = paramMap(data[7]);
+                ninth = paramMap(data[7]);
                 tenth = paramMap(data[7]);
             } catch (JSONException e) {
-                e.printStackTrace();
                 throw new RuntimeException(e);
             }
 

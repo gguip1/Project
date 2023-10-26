@@ -16,12 +16,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="136dp"
+            android:layout_marginTop="676dp"
             android:background="@drawable/btn_login_activity"
             android:text="출석체크"
             android:textColor="#FBF4F6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="32dp"
+            android:textAlignment="center"
+            android:fontFamily="@font/gmarketsansttfbold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

@@ -83,36 +83,37 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            Log.d(TAG, result);
-            String msg = "" + result;
+//            Log.d("result", result);
 
-            if (msg.equals(" 0") || msg.equals(" 1") || msg.equals(" 2")){ // editText에 입력이 없을 경우
-                Toast.makeText(getApplicationContext(), "로그인 정보를 입력해주세요.", Toast.LENGTH_LONG).show();
+            if(result != null){
+                if (result.equals(" empty:1")){ // editText에 입력이 없을 경우
+                    Toast.makeText(getApplicationContext(), "로그인 정보를 입력해주세요.", Toast.LENGTH_LONG).show();
+                }
+                else if(result.equals(" fail:1")){  //로그인 실패할 경우
+                    Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_LONG).show();
+                }
+                else if(result.equals(" fail:2")){ // 기타
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("dataFromServer", result);
+                    startActivity(intent);
+                    finish();
+                    Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("dataFromServer", result);
+                    startActivity(intent);
+                    finish();
+                    Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_LONG).show();
+                }
             }
-            else if(msg.equals(" FAIL")){  //로그인 실패할 경우
-                Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_LONG).show();
+            else{
+                Toast.makeText(getApplicationContext(), "서버와의 통신 오류", Toast.LENGTH_LONG).show();
             }
-            else if(msg.substring(0, 8).equals(" SUCCESS")){ // 로그인 성공할 경우
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.putExtra("dataFromServer", result.substring(8));
-                startActivity(intent);
-                finish();
-                Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_LONG).show();
-            }
-            else if(msg.equals(" Can't access timetable_info")){ // 기타
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.putExtra("dataFromServer", result);
-                startActivity(intent);
-                finish();
-                Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_LONG).show();
-            }
-            /** 1. String으로 들어오는 result를 HashMap으로 변환 고려 **/
-            /** 2. 데이터를 가져올때 SUCCESS라는 성공 메시지를 포함해서 가져오게 됨. **/
-            /** 2-1. SUCCESS를 찾기 위해 substring으로 쪼갰기 때문에 FAIL 같은 다른 값이 나올때 문자열의 문자가 8개가 안되기 때문에 오류가 뜸 그래서 else if를 FAIL 먼저 검사하게 함. (혹시라도 다른 값이 입력이 되면 문제가 있을 수 있음) **/
-            /** 3. 데이터는 SUCCESS 이후를 잘라서 가져올 예정 (HashMap으로 변환 못했을 경우)**/
 
             progressDialog.dismiss();
         }
+
 
 
         @Override
