@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="#813C4F"
+        android:background="#FBF8F4"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="110dp"></View>
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeFragment"
-    android:background="#FBF4F6">
+    android:background="#FBF8F4">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,10 +13,10 @@
 
         <android.widget.Button
             android:id="@+id/attendance_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
-            android:layout_marginTop="676dp"
+            android:layout_marginTop="312dp"
             android:background="@drawable/btn_login_activity"
             android:text="출석체크"
             android:textColor="#FBF4F6"
@@ -27,13 +27,16 @@
 
         <TextView
             android:id="@+id/date"
-            android:layout_width="170dp"
+            android:layout_width="382dp"
             android:layout_height="50dp"
-            android:layout_marginTop="32dp"
-            android:textAlignment="center"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/round_main_activity"
             android:fontFamily="@font/gmarketsansttfbold"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias="0.516"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

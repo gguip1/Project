@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".InfoFragment"
-    android:background="#FBF4F6">
+    android:background="#FBF8F4">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,16 +13,59 @@
 
         <android.widget.Button
             android:id="@+id/logout_Button"
-            android:layout_width="168dp"
-            android:layout_height="wrap_content"
+            android:layout_width="380dp"
+            android:layout_height="50dp"
             android:layout_gravity="bottom"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/btn_login_activity"
             android:text="로그아웃"
             android:textColor="#FBF4F6"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/_Info"
+            app:layout_constraintVertical_bias="0.19" />
+
+        <TextView
+            android:id="@+id/userID_Info"
+            android:layout_width="380dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/round_main_activity"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.483"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/name_Info"
+            android:layout_width="380dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/round_main_activity"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.483"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userID_Info" />
+
+        <TextView
+            android:id="@+id/_Info"
+            android:layout_width="380dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/round_main_activity"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.483"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name_Info" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
