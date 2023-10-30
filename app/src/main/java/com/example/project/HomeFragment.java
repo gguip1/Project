@@ -103,11 +103,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         String input_data = this.getArguments().getString("data");
 
-        if(input_data.equals(" fail:2")){
+        Log.d("asdf", input_data);
+
+        if(input_data.equals(" \"fail:3\"")){
             
         }
         else {
-            String[] data = JsonParsing(input_data);
+            JsonParsing jsonParsing = new JsonParsing();
+            String[] data = jsonParsing.parsingData(input_data);
 
             // 입력된 JSON 형태의 String을 HashMap으로 변환
             HashMap<String, String> first;
@@ -121,16 +124,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             HashMap<String, String> ninth;
             HashMap<String, String> tenth;
             try {
-                first = paramMap(data[0]);
-                second = paramMap(data[1]);
-                third = paramMap(data[2]);
-                fourth = paramMap(data[3]);
-                fifth = paramMap(data[4]);
-                sixth = paramMap(data[5]);
-                seventh = paramMap(data[6]);
-                eighth = paramMap(data[7]);
-                ninth = paramMap(data[7]);
-                tenth = paramMap(data[7]);
+                first = jsonParsing.paramMap(data[0]);
+                second = jsonParsing.paramMap(data[1]);
+                third = jsonParsing.paramMap(data[2]);
+                fourth = jsonParsing.paramMap(data[3]);
+                fifth = jsonParsing.paramMap(data[4]);
+                sixth = jsonParsing.paramMap(data[5]);
+                seventh = jsonParsing.paramMap(data[6]);
+                eighth = jsonParsing.paramMap(data[7]);
+                ninth = jsonParsing.paramMap(data[7]);
+                tenth = jsonParsing.paramMap(data[7]);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
@@ -272,30 +275,5 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         Intent intent = new Intent(getActivity(), AttendanceActivity.class);
         startActivity(intent);
-    }
-
-    public String[] JsonParsing(String data){
-        String[] result = new String[data.length()];
-        try{
-            JSONArray jsonArray = new JSONArray(data);
-            for(int i = 0; i < jsonArray.length(); i++){
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                result[i] = String.valueOf(jsonObject);
-            }
-            return result;
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public HashMap<String, String> paramMap(Object object) throws JSONException {
-        HashMap<String, String> hashmap = new HashMap<String, String>();
-        JSONObject json = new JSONObject(String.valueOf(object));
-        Iterator i = json.keys();
-        while(i.hasNext()){
-            String k = i.next().toString();
-            hashmap.put(k, json.getString(k));
-        }
-        return hashmap;
     }
 }

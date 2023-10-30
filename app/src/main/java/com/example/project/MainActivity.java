@@ -48,13 +48,13 @@ public class MainActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.to_left, R.anim.no_animation).replace(R.id.containers, homeFragment).commit();
                     before[0] = 0;
                     return true;
-                } else if (item.getItemId() == R.id.setting) {
+                } else if (item.getItemId() == R.id.timetable) {
                     if(before[0] == 0){
-                        Log.d("value", "0");
+//                        Log.d("value", "0");
                         getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.to_right, R.anim.no_animation).replace(R.id.containers, timeTableFragment).commit();
                     }
                     else if(before[0] == 1){
-                        Log.d("value", "1");
+//                        Log.d("value", "1");
                         getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.to_left, R.anim.no_animation).replace(R.id.containers, timeTableFragment).commit();
                     }
                     return true;

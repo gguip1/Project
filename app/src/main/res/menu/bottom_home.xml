@@ -4,7 +4,6 @@
 
     <item
         android:id="@+id/home"
-        android:tooltipText="Send an email"
         android:enabled="true"
         android:icon="@drawable/ic_home_bottomnav"
         android:title=""
@@ -12,17 +11,14 @@
         />
 
     <item
-        android:id="@+id/setting"
-        android:tooltipText="Send an email"
+        android:id="@+id/timetable"
         android:enabled="true"
         android:icon="@drawable/ic_timetable_bottomnav"
         android:title=""
-        app:showAsAction="always"
-        />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/info"
-        android:tooltipText="Send an email"
         android:enabled="true"
         android:icon="@drawable/ic_info_bottomnav"
         android:title=""

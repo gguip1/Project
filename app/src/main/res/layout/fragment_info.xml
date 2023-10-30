@@ -16,56 +16,27 @@
             android:layout_width="380dp"
             android:layout_height="50dp"
             android:layout_gravity="bottom"
-            android:layout_marginEnd="16dp"
             android:background="@drawable/btn_login_activity"
             android:text="로그아웃"
             android:textColor="#FBF4F6"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/_Info"
-            app:layout_constraintVertical_bias="0.19" />
-
-        <TextView
-            android:id="@+id/userID_Info"
-            android:layout_width="380dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="36dp"
-            android:background="@drawable/round_main_activity"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.483"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/name_Info"
-            android:layout_width="380dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/round_main_activity"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:textColor="@color/white"
+            android:id="@+id/userID_Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="정보"
+            android:textSize="36dp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.483"
+            app:layout_constraintHorizontal_bias="0.051"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userID_Info" />
-
-        <TextView
-            android:id="@+id/_Info"
-            android:layout_width="380dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/round_main_activity"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.483"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name_Info" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
