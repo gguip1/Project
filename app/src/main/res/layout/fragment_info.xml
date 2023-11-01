@@ -13,7 +13,7 @@
 
         <android.widget.Button
             android:id="@+id/logout_Button"
-            android:layout_width="380dp"
+            android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="bottom"
             android:background="@drawable/btn_login_activity"

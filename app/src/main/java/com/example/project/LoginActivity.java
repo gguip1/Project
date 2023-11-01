@@ -36,6 +36,10 @@ public class LoginActivity extends AppCompatActivity {
 
     String id;
     String password;
+    static String userID;
+    static String userPhoneNum;
+    static String userPassword;
+    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        String userPhoneNum = telephonyManager.getLine1Number();
+        userPhoneNum = telephonyManager.getLine1Number();
         editTextID = (EditText) findViewById(R.id.userID_Text);
         editTextPassword = (EditText) findViewById(R.id.password_Text);
         Button buttonInsert = (Button)findViewById(R.id.login_Button);
@@ -63,8 +67,8 @@ public class LoginActivity extends AppCompatActivity {
         if(boo == true){ // 체크가 되어있었다면 아래 코드를 수행
             Map<String, String> loginInfo = SharedPreferencesManager.getLoginInfo(this);
             if (!loginInfo.isEmpty() && loginInfo.get("id") != ""){
-                String userID = loginInfo.get("id");
-                String userPassword = loginInfo.get("password");
+                userID = loginInfo.get("id");
+                userPassword = loginInfo.get("password");
                 id = loginInfo.get("id");
                 password = loginInfo.get("password");
                 checkBoxAutoLogin.setChecked(true);
@@ -131,16 +135,43 @@ public class LoginActivity extends AppCompatActivity {
                 if (result.equals(" \"empty:1\"") || result.equals(" \"empty:2\"") || result.equals(" \"empty:3\"")){ // editText에 입력이 없을 경우
                     Toast.makeText(getApplicationContext(), "로그인 정보를 입력해주세요.", Toast.LENGTH_LONG).show();
                 }
-                else if(result.equals(" \"fail:1\"")){  //로그인 실패할 경우
-                    Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_LONG).show();
+                else if(result.equals(" \"fail:1\"")){ // 데이터베이스에 로그인 정보가 등록되어 있지 않을때
+                    Toast.makeText(getApplicationContext(), "로그인 정보가 틀렸습니다.", Toast.LENGTH_LONG).show();
+//                    if(count < 1){
+//                        try {
+//                            Thread.sleep(5000);
+//                            new AccessDB().execute("http://" + IP_ADDRESS + "/signup.php", userID, userPassword, userPhoneNum);
+//                        } catch (InterruptedException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                        count++;
+//                    }
+//                    else{
+//                        count = 0;
+//                        Toast.makeText(getApplicationContext(), "로그인 정보가 틀렸습니다.", Toast.LENGTH_LONG).show();
+//                    }
                 }
-                else if(result.equals(" \"fail:2\"")){  //로그인 실패할 경우
+                else if(result.equals(" \"fail:2\"")){
                     Toast.makeText(getApplicationContext(), "잘못된 비밀번호", Toast.LENGTH_LONG).show();
                 }
-                else if(result.equals(" \"fail:21\"")){  //로그인 실패할 경우
+                else if(result.equals(" \"fail:21\"")){
                     Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_LONG).show();
                 }
-                else if(result.equals(" \"fail:3\"")){ // 기타
+                else if(result.equals(" \"fail:3\"")){
+//                    if(count < 1){
+//                        try {
+//                            Thread.sleep(5000);
+//                            new AccessDB().execute("http://" + IP_ADDRESS + "/signup.php", userID, userPassword, userPhoneNum);
+//                        } catch (InterruptedException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                        count++;
+//                    }
+//                    else{
+//                        count = 0;
+//                        Toast.makeText(getApplicationContext(), "시간표 데이터를 가져오지 못했습니다.", Toast.LENGTH_LONG).show();
+//                    }
+                    SharedPreferencesManager.setLoginInfo(LoginActivity.this, id ,password);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.putExtra("dataFromServer", result);
                     startActivity(intent);
@@ -151,6 +182,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "중복된 아이디가 발견되었습니다. 다시 로그인 해주세요.", Toast.LENGTH_LONG).show();
                 }
                 else{
+                    SharedPreferencesManager.setLoginInfo(LoginActivity.this, id ,password);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.putExtra("dataFromServer", result);
                     startActivity(intent);

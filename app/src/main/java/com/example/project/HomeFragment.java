@@ -103,8 +103,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         String input_data = this.getArguments().getString("data");
 
-        Log.d("asdf", input_data);
-
         if(input_data.equals(" \"fail:3\"")){
             
         }
@@ -132,8 +130,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 sixth = jsonParsing.paramMap(data[5]);
                 seventh = jsonParsing.paramMap(data[6]);
                 eighth = jsonParsing.paramMap(data[7]);
-                ninth = jsonParsing.paramMap(data[7]);
-                tenth = jsonParsing.paramMap(data[7]);
+                ninth = jsonParsing.paramMap(data[8]);
+                tenth = jsonParsing.paramMap(data[9]);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
@@ -144,105 +142,375 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                     break;
                 case 2:
                     if (checkTime >= 9 && checkTime < 10) {
-                        date.setText("현재 수업 : " + first.get("mon"));
+                        if(first.get("mon").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + first.get("mon"));
+                        }
                     } else if (checkTime >= 10 && checkTime < 11) {
-                        date.setText("현재 수업 : " + second.get("mon"));
+                        if(second.get("mon").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + second.get("mon"));
+                        }
                     } else if (checkTime >= 11 && checkTime < 12) {
-                        date.setText("현재 수업 : " + third.get("mon"));
+                        if(third.get("mon").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + third.get("mon"));
+                        }
                     } else if (checkTime >= 12 && checkTime < 13) {
-                        date.setText("현재 수업 : " + fourth.get("mon"));
+                        if(fourth.get("mon").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + fourth.get("mon"));
+                        }
                     } else if (checkTime >= 13 && checkTime < 14) {
-                        date.setText("현재 수업 : " + fifth.get("mon"));
+                        if(fifth.get("mon").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + fifth.get("mon"));
+                        }
                     } else if (checkTime >= 14 && checkTime < 15) {
-                        date.setText("현재 수업 : " + sixth.get("mon"));
+                        if(sixth.get("mon").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + sixth.get("mon"));
+                        }
                     } else if (checkTime >= 15 && checkTime < 16) {
-                        date.setText("현재 수업 : " + seventh.get("mon"));
+                        if(seventh.get("mon").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + seventh.get("mon"));
+                        }
                     } else if (checkTime >= 16 && checkTime < 17) {
-                        date.setText("현재 수업 : " + eighth.get("mon"));
+                        if(eighth.get("mon").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + eighth.get("mon"));
+                        }
+                    } else if (checkTime >= 17 && checkTime < 18) {
+                        if(ninth.get("mon").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + ninth.get("mon"));
+                        }
+                    } else if (checkTime >= 18 && checkTime < 19) {
+                        if(tenth.get("mon").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + tenth.get("mon"));
+                        }
                     } else {
                         date.setText("수업이 없습니다.");
                     }
                     break;
                 case 3:
                     if (checkTime >= 9 && checkTime < 10) {
-                        date.setText("현재 수업 : " + first.get("tue"));
+                        if(first.get("tue").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + first.get("tue"));
+                        }
                     } else if (checkTime >= 10 && checkTime < 11) {
-                        date.setText("현재 수업 : " + second.get("tue"));
+                        if(second.get("tue").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + second.get("tue"));
+                        }
                     } else if (checkTime >= 11 && checkTime < 12) {
-                        date.setText("현재 수업 : " + third.get("tue"));
+                        if(third.get("tue").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + third.get("tue"));
+                        }
                     } else if (checkTime >= 12 && checkTime < 13) {
-                        date.setText("현재 수업 : " + fourth.get("tue"));
+                        if(fourth.get("tue").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + fourth.get("tue"));
+                        }
                     } else if (checkTime >= 13 && checkTime < 14) {
-                        date.setText("현재 수업 : " + fifth.get("tue"));
+                        if(fifth.get("tue").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + fifth.get("tue"));
+                        }
                     } else if (checkTime >= 14 && checkTime < 15) {
-                        date.setText("현재 수업 : " + sixth.get("tue"));
+                        if(sixth.get("tue").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + sixth.get("tue"));
+                        }
                     } else if (checkTime >= 15 && checkTime < 16) {
-                        date.setText("현재 수업 : " + seventh.get("tue"));
+                        if(seventh.get("tue").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + seventh.get("tue"));
+                        }
                     } else if (checkTime >= 16 && checkTime < 17) {
-                        date.setText("현재 수업 : " + eighth.get("tue"));
+                        if(eighth.get("tue").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + eighth.get("tue"));
+                        }
+                    } else if (checkTime >= 17 && checkTime < 18) {
+                        if(ninth.get("tue").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + ninth.get("tue"));
+                        }
+                    } else if (checkTime >= 18 && checkTime < 19) {
+                        if(tenth.get("tue").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + tenth.get("tue"));
+                        }
                     } else {
                         date.setText("수업이 없습니다.");
                     }
                     break;
                 case 4:
                     if (checkTime >= 9 && checkTime < 10) {
-                        date.setText("현재 수업 : " + first.get("wen"));
+                        if(first.get("wen").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + first.get("wen"));
+                        }
                     } else if (checkTime >= 10 && checkTime < 11) {
-                        date.setText("현재 수업 : " + second.get("wen"));
+                        if(second.get("wen").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + second.get("wen"));
+                        }
                     } else if (checkTime >= 11 && checkTime < 12) {
-                        date.setText("현재 수업 : " + third.get("wen"));
+                        if(third.get("wen").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + third.get("wen"));
+                        }
                     } else if (checkTime >= 12 && checkTime < 13) {
-                        date.setText("현재 수업 : " + fourth.get("wen"));
+                        if(fourth.get("wen").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + fourth.get("wen"));
+                        }
                     } else if (checkTime >= 13 && checkTime < 14) {
-                        date.setText("현재 수업 : " + fifth.get("wen"));
+                        if(fifth.get("wen").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + fifth.get("wen"));
+                        }
                     } else if (checkTime >= 14 && checkTime < 15) {
-                        date.setText("현재 수업 : " + sixth.get("wen"));
+                        if(sixth.get("wen").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + sixth.get("wen"));
+                        }
                     } else if (checkTime >= 15 && checkTime < 16) {
-                        date.setText("현재 수업 : " + seventh.get("wen"));
+                        if(seventh.get("wen").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + seventh.get("wen"));
+                        }
                     } else if (checkTime >= 16 && checkTime < 17) {
-                        date.setText("현재 수업 : " + eighth.get("wen"));
+                        if(eighth.get("wen").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + eighth.get("wen"));
+                        }
+                    } else if (checkTime >= 17 && checkTime < 18) {
+                        if(ninth.get("wen").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + ninth.get("wen"));
+                        }
+                    } else if (checkTime >= 18 && checkTime < 19) {
+                        if(tenth.get("wen").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + tenth.get("wen"));
+                        }
                     } else {
                         date.setText("수업이 없습니다.");
                     }
                     break;
                 case 5:
                     if (checkTime >= 9 && checkTime < 10) {
-                        date.setText("현재 수업 : " + first.get("thu"));
+                        if(first.get("thu").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + first.get("thu"));
+                        }
                     } else if (checkTime >= 10 && checkTime < 11) {
-                        date.setText("현재 수업 : " + second.get("thu"));
+                        if(second.get("thu").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + second.get("thu"));
+                        }
                     } else if (checkTime >= 11 && checkTime < 12) {
-                        date.setText("현재 수업 : " + third.get("thu"));
+                        if(third.get("thu").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + third.get("thu"));
+                        }
                     } else if (checkTime >= 12 && checkTime < 13) {
-                        date.setText("현재 수업 : " + fourth.get("thu"));
+                        if(fourth.get("thu").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + fourth.get("thu"));
+                        }
                     } else if (checkTime >= 13 && checkTime < 14) {
-                        date.setText("현재 수업 : " + fifth.get("thu"));
+                        if(fifth.get("thu").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + fifth.get("thu"));
+                        }
                     } else if (checkTime >= 14 && checkTime < 15) {
-                        date.setText("현재 수업 : " + sixth.get("thu"));
+                        if(sixth.get("thu").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + sixth.get("thu"));
+                        }
                     } else if (checkTime >= 15 && checkTime < 16) {
-                        date.setText("현재 수업 : " + seventh.get("thu"));
+                        if(seventh.get("thu").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + seventh.get("thu"));
+                        }
                     } else if (checkTime >= 16 && checkTime < 17) {
-                        date.setText("현재 수업 : " + eighth.get("thu"));
+                        if(eighth.get("thu").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + eighth.get("thu"));
+                        }
+                    } else if (checkTime >= 17 && checkTime < 18) {
+                        if(ninth.get("thu").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + ninth.get("thu"));
+                        }
+                    } else if (checkTime >= 18 && checkTime < 19) {
+                        if(tenth.get("thu").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + tenth.get("thu"));
+                        }
                     } else {
                         date.setText("수업이 없습니다.");
                     }
                     break;
                 case 6:
                     if (checkTime >= 9 && checkTime < 10) {
-                        date.setText("현재 수업 : " + first.get("fri"));
+                        if(first.get("fri").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + first.get("fri"));
+                        }
                     } else if (checkTime >= 10 && checkTime < 11) {
-                        date.setText("현재 수업 : " + second.get("fri"));
+                        if(second.get("fri").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + second.get("fri"));
+                        }
                     } else if (checkTime >= 11 && checkTime < 12) {
-                        date.setText("현재 수업 : " + third.get("fri"));
+                        if(third.get("fri").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + third.get("fri"));
+                        }
                     } else if (checkTime >= 12 && checkTime < 13) {
-                        date.setText("현재 수업 : " + fourth.get("fri"));
+                        if(fourth.get("fri").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + fourth.get("fri"));
+                        }
                     } else if (checkTime >= 13 && checkTime < 14) {
-                        date.setText("현재 수업 : " + fifth.get("fri"));
+                        if(fifth.get("fri").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + fifth.get("fri"));
+                        }
                     } else if (checkTime >= 14 && checkTime < 15) {
-                        date.setText("현재 수업 : " + sixth.get("fri"));
+                        if(sixth.get("fri").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + sixth.get("fri"));
+                        }
                     } else if (checkTime >= 15 && checkTime < 16) {
-                        date.setText("현재 수업 : " + seventh.get("fri"));
+                        if(seventh.get("fri").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + seventh.get("fri"));
+                        }
                     } else if (checkTime >= 16 && checkTime < 17) {
-                        date.setText("현재 수업 : " + eighth.get("fri"));
+                        if(eighth.get("fri").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + eighth.get("fri"));
+                        }
+                    } else if (checkTime >= 17 && checkTime < 18) {
+                        if(ninth.get("fri").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + ninth.get("fri"));
+                        }
+                    } else if (checkTime >= 18 && checkTime < 19) {
+                        if(tenth.get("fri").isEmpty()){
+                            date.setText("수업이 없습니다.");
+                        }
+                        else{
+                            date.setText("현재 수업 : " + tenth.get("fri"));
+                        }
                     } else {
                         date.setText("수업이 없습니다.");
                     }
