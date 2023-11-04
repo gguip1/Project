@@ -7,10 +7,10 @@
     tools:context=".AttendanceActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/test111"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="20dp"
-        tools:layout_editor_absoluteY="14dp" />
+        android:text="test"
+        tools:layout_editor_absoluteX="54dp"
+        tools:layout_editor_absoluteY="73dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

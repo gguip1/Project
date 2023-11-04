@@ -26,11 +26,9 @@ public class SharedPreferencesManager {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("id", id);
         editor.putString("password", password);
-
         editor.commit();
     }
     public static void setBoolean(Context context, String key, boolean value) {
-
         SharedPreferences prefs = getPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(key, value);

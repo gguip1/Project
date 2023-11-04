@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -35,6 +36,8 @@ public class TimeTableFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    TextView[][] t;
 
     public TimeTableFragment() {
         // Required empty public constructor
@@ -71,13 +74,12 @@ public class TimeTableFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_timetable, container, false);
-//        TextView err_msg = (TextView) view.findViewById(R.id.timetable_info);
-        String input_data = this.getArguments().getString("data");
+        String timetable_data = this.getArguments().getString("timetable_data");
 
-        TextView[][] t = new TextView[10][5];
+        t = new TextView[10][5];
 
         //키 값을 입력해서 값을 보이면 됨
-        t[0][0]  = (TextView) view.findViewById(R.id.t00);
+        t[0][0] = (TextView) view.findViewById(R.id.t00);
         t[0][1] = (TextView) view.findViewById(R.id.t01);
         t[0][2] = (TextView) view.findViewById(R.id.t02);
         t[0][3] = (TextView) view.findViewById(R.id.t03);
@@ -128,16 +130,15 @@ public class TimeTableFragment extends Fragment implements View.OnClickListener{
         t[9][3] = (TextView) view.findViewById(R.id.t93);
         t[9][4] = (TextView) view.findViewById(R.id.t94);
 
-        if(input_data.equals(" \"fail:3\"")){
+        if(timetable_data.equals(" \"fail:3\"")){
             for(int i = 0; i <= 9; i++){
                 for(int j = 0; j <= 4; j++){
-                    t[i][j].setText("시간표 데이터를 가져올 수 없습니다.");
                 }
             }
         }
         else{
             JsonParsing jsonParsing = new JsonParsing();
-            String[] data = jsonParsing.parsingData(input_data);
+            String[] data = jsonParsing.parsingData(timetable_data);
 
             // 입력된 JSON 형태의 String을 HashMap으로 변환
             HashMap<String, String> first;
@@ -164,7 +165,6 @@ public class TimeTableFragment extends Fragment implements View.OnClickListener{
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
-
             t[0][0].setText(first.get("mon")); t[0][1].setText(first.get("tue")); t[0][2].setText(first.get("wen")); t[0][3].setText(first.get("thu")); t[0][4].setText(first.get("fri"));
             t[1][0].setText(second.get("mon")); t[1][1].setText(second.get("tue")); t[1][2].setText(second.get("wen")); t[1][3].setText(second.get("thu")); t[1][4].setText(second.get("fri"));
             t[2][0].setText(third.get("mon")); t[2][1].setText(third.get("tue")); t[2][2].setText(third.get("wen")); t[2][3].setText(third.get("thu")); t[2][4].setText(third.get("fri"));
@@ -180,8 +180,7 @@ public class TimeTableFragment extends Fragment implements View.OnClickListener{
         //시간표에 과목이 등록된 셀만 클릭이벤트 발생
         for(int i = 0; i <= 9; i++){
             for(int j = 0; j <= 4; j++){
-                if(t[i][j].getText().toString().isEmpty() || t[i][j].getText().toString().equals("시간표 데이터를 가져올 수 없습니다.")){
-                }
+                if(t[i][j].getText().toString().isEmpty() || t[i][j].getText().toString().equals("시간표 데이터를 가져올 수 없습니다.")){}
                 else{
                     t[i][j].setOnClickListener(this);
                 }
@@ -194,7 +193,8 @@ public class TimeTableFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         /**  **/
-        Intent intent = new Intent(getActivity(), AttendanceActivity.class);
-        startActivity(intent);
+        Intent toAttendanceActivity = new Intent(getActivity(), AttendanceActivity.class);
+        toAttendanceActivity.putExtra("course_name", ((TextView)view).getText().toString());
+        startActivity(toAttendanceActivity);
     }
 }

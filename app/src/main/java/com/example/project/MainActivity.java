@@ -3,15 +3,27 @@ package com.example.project;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.nfc.tech.MifareUltralight;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class MainActivity extends AppCompatActivity {
 
+    private static String IP_ADDRESS = "rldjqdus05.cafe24.com";
+    private static String TAG = "DEBUG";
     HomeFragment homeFragment;
     TimeTableFragment timeTableFragment;
     InfoFragment infoFragment;
@@ -21,13 +33,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final int[] before = {0};
+        /*** Data ***/
+        Bundle bundle = new Bundle(); Intent secondIntent = getIntent();
 
-        //데이터
-        Bundle bundle = new Bundle();
-        Intent secondIntent = getIntent();
-        String data = secondIntent.getStringExtra("dataFromServer");
-        bundle.putString("data", data);
+        String timetable_data = getIntent().getStringExtra("timetable_data");
+        String user_ID = getIntent().getStringExtra("user_ID");
+
+        AccessDB task = new AccessDB();
+        task.execute("http://" + IP_ADDRESS + "/courseInfo.php", user_ID);
+
+        bundle.putString("timetable_data", timetable_data);
+
+        Intent toAttendanceActivity = new Intent(MainActivity.this, AttendanceActivity.class);
+        toAttendanceActivity.putExtra("user_ID", user_ID);
+
+        /*** Fragment ***/
+
+        final int[] before = {0};
 
         homeFragment = new HomeFragment();
         timeTableFragment = new TimeTableFragment();
@@ -67,5 +89,77 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         );
+    }
+    private class AccessDB extends AsyncTask<String, Void, String> {
+        ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = ProgressDialog.show(MainActivity.this,
+                    "잠시만 기다려 주세요.", null, true, true); /** progressDialog 디자인 수정 필요 **/
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            Bundle bundle = new Bundle(); bundle.putString("course_data", result);
+            Log.d("result", result);
+            progressDialog.dismiss();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String serverURL = (String)params[0];
+            String user_id = (String)params[1];
+            String postParameters = "user_id=" + user_id;
+            try {
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.connect();
+
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.d(TAG, "POST response code - " + responseStatusCode);
+
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                }
+                else{
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+
+                bufferedReader.close();
+
+                return sb.toString();
+            } catch (Exception e) {
+                Log.d(TAG, "InsertData: Error ", e);
+                return new String("Error: " + e.getMessage());
+            }
+
+        }
     }
 }

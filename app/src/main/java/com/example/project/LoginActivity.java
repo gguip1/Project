@@ -39,8 +39,6 @@ public class LoginActivity extends AppCompatActivity {
     static String userID;
     static String userPhoneNum;
     static String userPassword;
-    int count = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,8 +79,8 @@ public class LoginActivity extends AppCompatActivity {
         buttonInsert.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                String userID = editTextID.getText().toString();
-                String userPassword = editTextPassword.getText().toString();
+                userID = editTextID.getText().toString();
+                userPassword = editTextPassword.getText().toString();
 
                 if (checkBoxAutoLogin.isChecked()) { // 체크박스 체크 되어 있으면
                     SharedPreferencesManager.setBoolean(LoginActivity.this, "check", checkBoxAutoLogin.isChecked()); //현재 체크박스 상태 값 저장
@@ -92,11 +90,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 // 데이터베이스 접근
-                AccessDB task = new AccessDB();
-                task.execute("http://" + IP_ADDRESS + "/signup.php", userID, userPassword, userPhoneNum);
+                AccessDB time_table_data = new AccessDB();
+                time_table_data.execute("http://" + IP_ADDRESS + "/signup.php", userID, userPassword, userPhoneNum);
+
+
+
                 id = userID;
                 password = userPassword;
-
                 // 로그인 시도 이후 editText 초기화
                 editTextID.setText("");
                 editTextPassword.setText("");
@@ -130,26 +130,13 @@ public class LoginActivity extends AppCompatActivity {
             // fail:21 = 데이터베이스에 일치하는 userID가 존재하지만 입력한 userPassword가 틀림 // Primary키의 중복
             // fail:3 = 데이터베이스에 중복된 아이디가 2개 이상일 경우 오류 데이터로 판단해서 해당하는 userID를 가지고 있는 모든 행을 제거
             // fail:4 = 입력한 userID와 일치하는 timetable_info의 데이터가 없음
-            
+
             if(result != null){
                 if (result.equals(" \"empty:1\"") || result.equals(" \"empty:2\"") || result.equals(" \"empty:3\"")){ // editText에 입력이 없을 경우
                     Toast.makeText(getApplicationContext(), "로그인 정보를 입력해주세요.", Toast.LENGTH_LONG).show();
                 }
                 else if(result.equals(" \"fail:1\"")){ // 데이터베이스에 로그인 정보가 등록되어 있지 않을때
                     Toast.makeText(getApplicationContext(), "로그인 정보가 틀렸습니다.", Toast.LENGTH_LONG).show();
-//                    if(count < 1){
-//                        try {
-//                            Thread.sleep(5000);
-//                            new AccessDB().execute("http://" + IP_ADDRESS + "/signup.php", userID, userPassword, userPhoneNum);
-//                        } catch (InterruptedException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                        count++;
-//                    }
-//                    else{
-//                        count = 0;
-//                        Toast.makeText(getApplicationContext(), "로그인 정보가 틀렸습니다.", Toast.LENGTH_LONG).show();
-//                    }
                 }
                 else if(result.equals(" \"fail:2\"")){
                     Toast.makeText(getApplicationContext(), "잘못된 비밀번호", Toast.LENGTH_LONG).show();
@@ -158,23 +145,14 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_LONG).show();
                 }
                 else if(result.equals(" \"fail:3\"")){
-//                    if(count < 1){
-//                        try {
-//                            Thread.sleep(5000);
-//                            new AccessDB().execute("http://" + IP_ADDRESS + "/signup.php", userID, userPassword, userPhoneNum);
-//                        } catch (InterruptedException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                        count++;
-//                    }
-//                    else{
-//                        count = 0;
-//                        Toast.makeText(getApplicationContext(), "시간표 데이터를 가져오지 못했습니다.", Toast.LENGTH_LONG).show();
-//                    }
                     SharedPreferencesManager.setLoginInfo(LoginActivity.this, id ,password);
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("dataFromServer", result);
-                    startActivity(intent);
+                    Intent toMainActivity = new Intent(LoginActivity.this, MainActivity.class);
+
+                    toMainActivity.putExtra("timetable_data", result); // 시간표 데이터 다음 액티비티에 전송
+
+                    toMainActivity.putExtra("user_ID", userID); // userID 다음 액티비티에 전송
+
+                    startActivity(toMainActivity);
                     finish();
                     Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_LONG).show();
                 }
@@ -184,7 +162,9 @@ public class LoginActivity extends AppCompatActivity {
                 else{
                     SharedPreferencesManager.setLoginInfo(LoginActivity.this, id ,password);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("dataFromServer", result);
+                    intent.putExtra("timetable_data", result); // 시간표 데이터 다음 액티비티에 전송
+
+                    intent.putExtra("user_ID", userID); // userID 다음 액티비티에 전송
                     startActivity(intent);
                     finish();
                     Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_LONG).show();
