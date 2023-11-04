@@ -20,7 +20,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     private static String IP_ADDRESS = "rldjqdus05.cafe24.com";
     private static String TAG = "DEBUG";
@@ -28,24 +28,28 @@ public class MainActivity extends AppCompatActivity {
     TimeTableFragment timeTableFragment;
     InfoFragment infoFragment;
 
+    Bundle bundle = new Bundle();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         /*** Data ***/
-        Bundle bundle = new Bundle(); Intent secondIntent = getIntent();
 
         String timetable_data = getIntent().getStringExtra("timetable_data");
         String user_ID = getIntent().getStringExtra("user_ID");
 
-        AccessDB task = new AccessDB();
-        task.execute("http://" + IP_ADDRESS + "/courseInfo.php", user_ID);
+        AccessCourseInfo courseInfo = new AccessCourseInfo();
+        courseInfo.execute("http://" + IP_ADDRESS + "/courseInfo.php", user_ID);
 
+        AccessStudentInfo studentInfo = new AccessStudentInfo();
+        studentInfo.execute("http://" + IP_ADDRESS + "/studentInfo.php", user_ID);
+
+        bundle.putString("user_ID", user_ID);
         bundle.putString("timetable_data", timetable_data);
 
         Intent toAttendanceActivity = new Intent(MainActivity.this, AttendanceActivity.class);
-        toAttendanceActivity.putExtra("user_ID", user_ID);
+        toAttendanceActivity.putExtra("user_ID", user_ID );
 
         /*** Fragment ***/
 
@@ -55,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         timeTableFragment = new TimeTableFragment();
         infoFragment = new InfoFragment();
 
+        infoFragment.setArguments(bundle);
         timeTableFragment.setArguments(bundle);
         homeFragment.setArguments(bundle);
 
@@ -90,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         }
         );
     }
-    private class AccessDB extends AsyncTask<String, Void, String> {
+    private class AccessCourseInfo extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
 
         @Override
@@ -104,7 +109,80 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            Bundle bundle = new Bundle(); bundle.putString("course_data", result);
+            bundle.putString("course_data", result);
+            Log.d("result", result);
+            progressDialog.dismiss();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String serverURL = (String)params[0];
+            String user_id = (String)params[1];
+            String postParameters = "user_id=" + user_id;
+            try {
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.connect();
+
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.d(TAG, "POST response code - " + responseStatusCode);
+
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                }
+                else{
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+
+                bufferedReader.close();
+
+                return sb.toString();
+            } catch (Exception e) {
+                Log.d(TAG, "InsertData: Error ", e);
+                return new String("Error: " + e.getMessage());
+            }
+
+        }
+    }
+
+    private class AccessStudentInfo extends AsyncTask<String, Void, String> {
+        ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = ProgressDialog.show(MainActivity.this,
+                    "잠시만 기다려 주세요.", null, true, true); /** progressDialog 디자인 수정 필요 **/
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            bundle.putString("student_data", result.toString());
             Log.d("result", result);
             progressDialog.dismiss();
         }

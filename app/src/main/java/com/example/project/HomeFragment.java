@@ -1,7 +1,10 @@
 package com.example.project;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.graphics.Color;
 import android.icu.util.Calendar;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +12,8 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.os.Message;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,9 +34,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -42,17 +50,29 @@ import java.util.Locale;
 public class HomeFragment extends Fragment implements View.OnClickListener{
 
     // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER/
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
+
+    private static String IP_ADDRESS = "rldjqdus05.cafe24.com";
+    // Log Tag
+    private static String TAG = "DEBUG";
     private String mParam1;
     private String mParam2;
     private static String now_class = "";
-
     private TextView date;
     private Handler handler;
+
+    static int dayWeek;
+    static int week_of_year;
+    static int month;
+    static int day;
+    static int hour_of_day;
+    static int minute;
+    static int second;
+    static int sClass;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -92,6 +112,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         public void run() {
             try {
                 updateCurrentDateTime();
+
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
@@ -107,7 +128,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         cal.setTime(now);
 
         String currentDateTime = currentDate.format(now);
-        int dayWeek = cal.get(Calendar.DAY_OF_WEEK);
+        dayWeek = cal.get(Calendar.DAY_OF_WEEK);
+        week_of_year = cal.get(Calendar.WEEK_OF_YEAR);
+        month = cal.get(Calendar.MONTH);
+        day = cal.get(Calendar.DAY_OF_MONTH);
+        hour_of_day = cal.get(Calendar.HOUR_OF_DAY);
+        minute = cal.get(Calendar.MINUTE);
+        second = cal.get(Calendar.SECOND);
 
         int checkTime = Integer.parseInt(currentDateTime);
 
@@ -152,6 +179,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             switch (dayWeek) {
                 case 1:
                 case 7:
+                    sClass = 0;
                     date.setText("수업이 없습니다.");
                     break;
                 case 2:
@@ -160,6 +188,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                             date.setText("수업이 없습니다.");
                         }
                         else{
+                            sClass = 1;
                             now_class = first.get("mon");
                         }
                     } else if (checkTime >= 10 && checkTime < 11) {
@@ -167,6 +196,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                             date.setText("수업이 없습니다.");
                         }
                         else{
+                            sClass = 2;
                             now_class = second.get("mon");
                         }
                     } else if (checkTime >= 11 && checkTime < 12) {
@@ -174,6 +204,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                             date.setText("수업이 없습니다.");
                         }
                         else{
+                            sClass = 3;
                             now_class = third.get("mon");
                         }
                     } else if (checkTime >= 12 && checkTime < 13) {
@@ -181,6 +212,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                             date.setText("수업이 없습니다.");
                         }
                         else{
+                            sClass = 4;
                             now_class = fourth.get("mon");
                         }
                     } else if (checkTime >= 13 && checkTime < 14) {
@@ -188,6 +220,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                             date.setText("수업이 없습니다.");
                         }
                         else{
+                            sClass = 5;
                             now_class = fifth.get("mon");
                         }
                     } else if (checkTime >= 14 && checkTime < 15) {
@@ -195,6 +228,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                             date.setText("수업이 없습니다.");
                         }
                         else{
+                            sClass = 6;
                             now_class = sixth.get("mon");
                         }
                     } else if (checkTime >= 15 && checkTime < 16) {
@@ -202,6 +236,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                             date.setText("수업이 없습니다.");
                         }
                         else{
+                            sClass = 7;
                             now_class = seventh.get("mon");
                         }
                     } else if (checkTime >= 16 && checkTime < 17) {
@@ -209,6 +244,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                             date.setText("수업이 없습니다.");
                         }
                         else{
+                            sClass = 8;
                             now_class = eighth.get("mon");
                         }
                     } else if (checkTime >= 17 && checkTime < 18) {
@@ -216,6 +252,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                             date.setText("수업이 없습니다.");
                         }
                         else{
+                            sClass = 9;
                             now_class = ninth.get("mon");
                         }
                     } else if (checkTime >= 18 && checkTime < 19) {
@@ -223,6 +260,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                             date.setText("수업이 없습니다.");
                         }
                         else{
+                            sClass = 10;
                             now_class = tenth.get("mon");
                         }
                     } else {
@@ -235,6 +273,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                             date.setText("수업이 없습니다.");
                         }
                         else{
+                            sClass = 1;
                             now_class = first.get("tue");
                         }
                     } else if (checkTime >= 10 && checkTime < 11) {
@@ -242,6 +281,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                             date.setText("수업이 없습니다.");
                         }
                         else{
+                            sClass = 2;
                             now_class = second.get("tue");
                         }
                     } else if (checkTime >= 11 && checkTime < 12) {
@@ -249,6 +289,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                             date.setText("수업이 없습니다.");
                         }
                         else{
+                            sClass = 3;
                             now_class = third.get("tue");
                         }
                     } else if (checkTime >= 12 && checkTime < 13) {
@@ -256,6 +297,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                             date.setText("수업이 없습니다.");
                         }
                         else{
+                            sClass = 4;
                             now_class = fourth.get("tue");
                         }
                     } else if (checkTime >= 13 && checkTime < 14) {
@@ -263,6 +305,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                             date.setText("수업이 없습니다.");
                         }
                         else{
+                            sClass = 5;
                             now_class = fifth.get("tue");
                         }
                     } else if (checkTime >= 14 && checkTime < 15) {
@@ -270,35 +313,40 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            date.setText("현재 수업 : " + sixth.get("tue"));
+                            sClass = 6;
+                            now_class = sixth.get("tue");
                         }
                     } else if (checkTime >= 15 && checkTime < 16) {
                         if(seventh.get("tue").equals("")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(seventh.get("tue"));
+                            sClass = 7;
+                            now_class = seventh.get("tue");
                         }
                     } else if (checkTime >= 16 && checkTime < 17) {
                         if(eighth.get("tue").equals("")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(eighth.get("tue"));
+                            sClass = 8;
+                            now_class = eighth.get("tue");
                         }
                     } else if (checkTime >= 17 && checkTime < 18) {
                         if(ninth.get("tue").equals("")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(ninth.get("tue"));
+                            sClass = 9;
+                            now_class = ninth.get("tue");
                         }
                     } else if (checkTime >= 18 && checkTime < 19) {
                         if(tenth.get("tue").equals("")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(tenth.get("tue"));
+                            sClass = 10;
+                            now_class = tenth.get("tue");
                         }
                     } else {
                         date.setText("수업이 없습니다.");
@@ -310,70 +358,80 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(first.get("wen"));
+                            sClass = 1;
+                            now_class = first.get("wen");
                         }
                     } else if (checkTime >= 10 && checkTime < 11) {
                         if(second.get("wen").equals("")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(second.get("wen"));
+                            sClass = 2;
+                            now_class = second.get("wen");
                         }
                     } else if (checkTime >= 11 && checkTime < 12) {
                         if(third.get("wen").equals("")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(third.get("wen"));
+                            sClass = 3;
+                            now_class = third.get("wen");
                         }
                     } else if (checkTime >= 12 && checkTime < 13) {
                         if(fourth.get("wen").equals("")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(fourth.get("wen"));
+                            sClass = 4;
+                            now_class = fourth.get("wen");
                         }
                     } else if (checkTime >= 13 && checkTime < 14) {
                         if(fifth.get("wen").equals("")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(fifth.get("wen"));
+                            sClass = 5;
+                            now_class = fifth.get("wen");
                         }
                     } else if (checkTime >= 14 && checkTime < 15) {
                         if(sixth.get("wen").equals("")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(sixth.get("wen"));
+                            sClass = 6;
+                            now_class = sixth.get("wen");
                         }
                     } else if (checkTime >= 15 && checkTime < 16) {
                         if(seventh.get("wen").equals("")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(seventh.get("wen"));
+                            sClass = 7;
+                            now_class = seventh.get("wen");
                         }
                     } else if (checkTime >= 16 && checkTime < 17) {
                         if(eighth.get("wen").equals("")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(eighth.get("wen"));
+                            sClass = 8;
+                            now_class = eighth.get("wen");
                         }
                     } else if (checkTime >= 17 && checkTime < 18) {
                         if(ninth.get("wen").equals("")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(ninth.get("wen"));
+                            sClass = 9;
+                            now_class = ninth.get("wen");
                         }
                     } else if (checkTime >= 18 && checkTime < 19) {
                         if(tenth.get("wen").equals("")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(tenth.get("wen"));
+                            sClass = 10;
+                            now_class = tenth.get("wen");
                         }
                     } else {
                         date.setText("수업이 없습니다.");
@@ -385,70 +443,80 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(first.get("thu"));
+                            sClass = 1;
+                            now_class = first.get("thu");
                         }
                     } else if (checkTime >= 10 && checkTime < 11) {
                         if(second.get("thu").equals(" ")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(second.get("thu"));
+                            sClass = 2;
+                            now_class = second.get("thu");
                         }
                     } else if (checkTime >= 11 && checkTime < 12) {
                         if(third.get("thu").equals(" ")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(third.get("thu"));
+                            sClass = 3;
+                            now_class = third.get("thu");
                         }
                     } else if (checkTime >= 12 && checkTime < 13) {
                         if(fourth.get("thu").equals(" ")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(fourth.get("thu"));
+                            sClass = 4;
+                            now_class = fourth.get("thu");
                         }
                     } else if (checkTime >= 13 && checkTime < 14) {
                         if(fifth.get("thu").equals(" ")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(fifth.get("thu"));
+                            sClass = 5;
+                            now_class = fifth.get("thu");
                         }
                     } else if (checkTime >= 14 && checkTime < 15) {
                         if(sixth.get("thu").equals(" ")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(sixth.get("thu"));
+                            sClass = 6;
+                            now_class = sixth.get("thu");
                         }
                     } else if (checkTime >= 15 && checkTime < 16) {
                         if(seventh.get("thu").equals(" ")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(seventh.get("thu"));
+                            sClass = 7;
+                            now_class = seventh.get("thu");
                         }
                     } else if (checkTime >= 16 && checkTime < 17) {
-                        if(!eighth.get("thu").isEmpty()){
-                            now_class = fifth.get(eighth.get("thu"));
+                        if(eighth.get("thu").equals(" ")){
+                            date.setText("수업이 없습니다.");
                         }
                         else{
-                            date.setText("수업이 없습니다.");
+                            sClass = 8;
+                            now_class = eighth.get("thu");
                         }
                     } else if (checkTime >= 17 && checkTime < 18) {
                         if(ninth.get("thu").equals(" ")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(ninth.get("thu"));
+                            sClass = 9;
+                            now_class = ninth.get("thu");
                         }
                     } else if (checkTime >= 18 && checkTime < 19) {
                         if(tenth.get("thu").equals(" ")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(tenth.get("thu"));
+                            sClass = 10;
+                            now_class = tenth.get("thu");
                         }
                     } else {
                         date.setText("수업이 없습니다.");
@@ -460,70 +528,80 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(first.get("fri"));
+                            sClass = 1;
+                            now_class = first.get("fri");
                         }
                     } else if (checkTime >= 10 && checkTime < 11) {
                         if(second.get("fri").equals("")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(second.get("fri"));
+                            sClass = 2;
+                            now_class = second.get("fri");
                         }
                     } else if (checkTime >= 11 && checkTime < 12) {
                         if(third.get("fri").equals("")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(third.get("fri"));
+                            sClass = 3;
+                            now_class = third.get("fri");
                         }
                     } else if (checkTime >= 12 && checkTime < 13) {
                         if(fourth.get("fri").equals("")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(fourth.get("fri"));
+                            sClass = 4;
+                            now_class = fourth.get("fri");
                         }
                     } else if (checkTime >= 13 && checkTime < 14) {
                         if(fifth.get("fri").equals("")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(fifth.get("fri"));
+                            sClass = 5;
+                            now_class = fifth.get("fri");
                         }
                     } else if (checkTime >= 14 && checkTime < 15) {
                         if(sixth.get("fri").equals("")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(sixth.get("fri"));
+                            sClass = 6;
+                            now_class = sixth.get("fri");
                         }
                     } else if (checkTime >= 15 && checkTime < 16) {
                         if(seventh.get("fri").equals("")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(seventh.get("fri"));
+                            sClass = 7;
+                            now_class = seventh.get("fri");
                         }
                     } else if (checkTime >= 16 && checkTime < 17) {
                         if(eighth.get("fri").equals("")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(eighth.get("fri"));
+                            sClass = 8;
+                            now_class = eighth.get("fri");
                         }
                     } else if (checkTime >= 17 && checkTime < 18) {
                         if(ninth.get("fri").equals("")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(ninth.get("fri"));
+                            sClass = 9;
+                            now_class = ninth.get("fri");
                         }
                     } else if (checkTime >= 18 && checkTime < 19) {
                         if(tenth.get("fri").equals("")){
                             date.setText("수업이 없습니다.");
                         }
                         else{
-                            now_class = fifth.get(tenth.get("fri"));
+                            sClass = 10;
+                            now_class = tenth.get("fri");
                         }
                     } else {
                         date.setText("수업이 없습니다.");
@@ -544,17 +622,98 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         String user_ID = this.getArguments().getString("user_ID");
 
-        attendance_check.setOnClickListener(this);
-
         date = view.findViewById(R.id.date);
         handler = new Handler();
         handler.post(updateDateTime);
 
+        attendance_check.setOnClickListener(this);
         return view;
     }
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(getActivity(), AttendanceActivity.class);
-        startActivity(intent);
+        /** 더 고쳐야 함 **/
+        String user_ID = this.getArguments().getString("user_ID");
+        AccessDB task = new AccessDB();
+        Log.d("debug", user_ID + " : " + String.valueOf(week_of_year - 34) + " : " +  String.valueOf(sClass)  + " : " +  String.valueOf(hour_of_day));
+
+        /** 주말에는 sClass가 0이어서 empty:3 발생 **/
+        task.execute("http://" + IP_ADDRESS + "/attendance.php", user_ID, String.valueOf(week_of_year - 34), String.valueOf(sClass), String.valueOf(hour_of_day));
+//        task.execute("http://" + IP_ADDRESS + "/attendance.php", user_ID, String.valueOf(week_of_year - 34), "1", String.valueOf(hour_of_day));
+    }
+
+    private class AccessDB extends AsyncTask<String, Void, String> {
+        ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = ProgressDialog.show(getContext(),
+                    "잠시만 기다려 주세요.", null, true, true); /** progressDialog 디자인 수정 필요 **/
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            Log.d("debug", result);
+            progressDialog.dismiss();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String serverURL = (String)params[0];
+            String user_id = (String)params[1];
+            String attendance_week = (String)params[2];
+            String attendance_day = (String)params[3];
+            String attendance_time = (String)params[4];
+            String postParameters = "user_id=" + user_id + "&attendance_week=" + attendance_week + "&attendance_day=" + attendance_day + "&attendance_time=" + attendance_time;
+            try {
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.connect();
+
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.d(TAG, "POST response code - " + responseStatusCode);
+
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                }
+                else{
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+
+                bufferedReader.close();
+
+                return sb.toString();
+            } catch (Exception e) {
+                Log.d(TAG, "InsertData: Error ", e);
+                return new String("Error: " + e.getMessage());
+            }
+
+        }
     }
 }

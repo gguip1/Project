@@ -5,10 +5,18 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +33,11 @@ public class InfoFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    TextView student_department_text;
+    TextView student_id_text;
+    TextView student_grade_text;
+    TextView student_name_text;
 
     public InfoFragment() {
         // Required empty public constructor
@@ -60,12 +73,35 @@ public class InfoFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         View view = inflater.inflate(R.layout.fragment_info, container, false);
 
-        Button logout = view.findViewById(R.id.logout_Button);
+        /*** student_data가 없을때 고려필요 ***/
 
+        JsonParsing jsonParsing = new JsonParsing();
+
+        String student_data = this.getArguments().getString("student_data");
+        String[] data = jsonParsing.parsingData(student_data);
+
+        jsonParsing.parsingData(student_data);
+
+        HashMap<String, String> info;
+        try {
+            info = jsonParsing.paramMap(data[0]);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        student_department_text = (TextView) view.findViewById(R.id.student_department);
+        student_id_text = (TextView) view.findViewById(R.id.student_id);
+        student_grade_text = (TextView) view.findViewById(R.id.student_grade);
+        student_name_text = (TextView) view.findViewById(R.id.student_name);
+
+        student_department_text.setText("학과 : " + info.get("student_department"));
+        student_id_text.setText("학번 : " + info.get("student_id"));
+        student_grade_text.setText("학년 : " + info.get("student_grade"));
+        student_name_text.setText("이름 : " + info.get("student_name"));
+
+        Button logout = view.findViewById(R.id.logout_Button);
         logout.setOnClickListener(this);
 
         return view;
