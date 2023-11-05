@@ -22,6 +22,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.altbeacon.beacon.Beacon;
+import org.altbeacon.beacon.BeaconConsumer;
+import org.altbeacon.beacon.BeaconManager;
+import org.altbeacon.beacon.BeaconParser;
+import org.altbeacon.beacon.RangeNotifier;
+import org.altbeacon.beacon.Region;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,7 +53,7 @@ import java.util.Locale;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements View.OnClickListener{
+public class HomeFragment extends Fragment implements View.OnClickListener, BeaconConsumer{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER/
@@ -61,10 +67,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private static String TAG = "DEBUG";
     private String mParam1;
     private String mParam2;
+    /** 현재 수업 **/
     private static String now_class = "";
+    /** 현재 수업 **/
     private TextView date;
     private Handler handler;
 
+    static Context homeContext;
+
+    /** 현재 시간 **/
     static int dayWeek;
     static int week_of_year;
     static int month;
@@ -73,6 +84,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     static int minute;
     static int second;
     static int sClass;
+    /** 현재 시간 **/
+
+    /** 비콘 **/
+    private BeaconManager beaconManager;
+    private List<Beacon> beaconList = new ArrayList<>();
+    /** 비콘 **/
 
     public HomeFragment() {
         // Required empty public constructor
@@ -105,6 +122,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onDestroy(){
         super.onDestroy();
+        beaconManager.unbind(this);
         handler.removeCallbacks(updateDateTime);
     }
     private Runnable updateDateTime = new Runnable() {
@@ -622,11 +640,54 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         String user_ID = this.getArguments().getString("user_ID");
 
+        homeContext = container.getContext();
+
         date = view.findViewById(R.id.date);
-        handler = new Handler();
+        handler = new Handler() {
+            public void handleMessage(Message msg) {
+
+                // 비콘이 아무것도 없으면
+                if(beaconList.isEmpty()){
+                    attendance_check.setText("비콘없음");
+                    attendance_check.setEnabled(false);
+                    attendance_check.setBackgroundColor(Color.parseColor("#aaaaaa"));
+                }
+                // 비콘의 아이디와 거리를 측정하여 textView에 넣는다.
+                for (Beacon beacon : beaconList) {
+                    int major = beacon.getId2().toInt(); //beacon major
+
+                    if(major == 4660){
+                        //beacon 의 식별을 위하여 major값으로 확인
+                        //이곳에 필요한 기능 구현
+                        attendance_check.setText("버튼 활성화");
+                        attendance_check.setEnabled(true);
+                        attendance_check.setBackgroundColor(Color.parseColor("#f5c47e"));
+                        // 비콘이 꺼져도 계속 활성화되어서 리스트를 초기화해서 다시 비콘이 있는지없는지 탐지하게 만듦
+                        beaconList.clear();
+                    }
+                    else {
+                        attendance_check.setText("비콘 아이디 틀림");
+                        attendance_check.setEnabled(false);
+                        attendance_check.setBackgroundColor(Color.parseColor("#aaaaaa"));
+                    }
+                    //textView.setText("ID : " + beacon.getId2() + " / " + "Distance : " + Double.parseDouble(String.format("%.3f", beacon.getDistance())) + "m\n");
+                }
+
+                // 자기 자신을 1초마다 호출
+                handler.sendEmptyMessageDelayed(0, 1000);
+            }
+        };
+
         handler.post(updateDateTime);
 
         attendance_check.setOnClickListener(this);
+
+        /** 비콘 **/
+        beaconManager = BeaconManager.getInstanceForApplication(container.getContext());
+        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
+        beaconManager.bind(this); //?
+        handler.sendEmptyMessage(0);
+
         return view;
     }
     @Override
@@ -639,6 +700,43 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         /** 주말에는 sClass가 0이어서 empty:3 발생 **/
         task.execute("http://" + IP_ADDRESS + "/attendance.php", user_ID, String.valueOf(week_of_year - 34), String.valueOf(sClass), String.valueOf(hour_of_day));
 //        task.execute("http://" + IP_ADDRESS + "/attendance.php", user_ID, String.valueOf(week_of_year - 34), "1", String.valueOf(hour_of_day));
+    }
+
+    @Override
+    public void onBeaconServiceConnect() {
+        beaconManager.setRangeNotifier(new RangeNotifier() {
+            @Override
+            // 비콘이 감지되면 해당 함수가 호출된다. Collection<Beacon> beacons에는 감지된 비콘의 리스트가,
+            // region에는 비콘들에 대응하는 Region 객체가 들어온다.
+            public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
+                if (beacons.size() > 0) {
+                    beaconList.clear();
+                    for (Beacon beacon : beacons) {
+                        beaconList.add(beacon);
+                    }
+                }
+            }
+
+        });
+
+        try {
+            beaconManager.startRangingBeaconsInRegion(new Region("myRangingUniqueId", null, null, null));
+        } catch (RemoteException e) {   }
+    }
+
+    @Override
+    public Context getApplicationContext() {
+        return null;
+    }
+
+    @Override
+    public void unbindService(ServiceConnection connection) {
+
+    }
+
+    @Override
+    public boolean bindService(Intent intent, ServiceConnection connection, int mode) {
+        return false;
     }
 
     private class AccessDB extends AsyncTask<String, Void, String> {
