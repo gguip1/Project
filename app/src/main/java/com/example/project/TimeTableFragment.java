@@ -2,24 +2,18 @@ package com.example.project;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
+import com.example.project.module.JsonParsing;
 
-import java.util.Arrays;
+import org.json.JSONException;
+
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +31,7 @@ public class TimeTableFragment extends Fragment implements View.OnClickListener{
     private String mParam1;
     private String mParam2;
 
+    private static String user_ID;
     TextView[][] t;
 
     public TimeTableFragment() {
@@ -75,6 +70,7 @@ public class TimeTableFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_timetable, container, false);
         String timetable_data = this.getArguments().getString("timetable_data");
+        user_ID = this.getArguments().getString("user_ID");
 
         t = new TextView[10][5];
 
@@ -139,7 +135,6 @@ public class TimeTableFragment extends Fragment implements View.OnClickListener{
         else{
             JsonParsing jsonParsing = new JsonParsing();
             String[] data = jsonParsing.parsingData(timetable_data);
-
             // 입력된 JSON 형태의 String을 HashMap으로 변환
             HashMap<String, String> first;
             HashMap<String, String> second;
@@ -195,6 +190,7 @@ public class TimeTableFragment extends Fragment implements View.OnClickListener{
         /**  **/
         Intent toAttendanceActivity = new Intent(getActivity(), AttendanceActivity.class);
         toAttendanceActivity.putExtra("course_name", ((TextView)view).getText().toString());
+        toAttendanceActivity.putExtra("user_ID", user_ID);
         startActivity(toAttendanceActivity);
     }
 }

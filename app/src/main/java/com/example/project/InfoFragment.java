@@ -5,16 +5,16 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.json.JSONArray;
+import com.example.project.module.JsonParsing;
+import com.example.project.module.SharedPreferencesManager;
+
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 

@@ -22,13 +22,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
-
-    private static String IP_ADDRESS = "rldjqdus05.cafe24.com";
-    private static String TAG = "DEBUG";
     HomeFragment homeFragment;
     TimeTableFragment timeTableFragment;
     InfoFragment infoFragment;
 
+    private static String IP_ADDRESS = "rldjqdus05.cafe24.com";
+    private static String TAG = "DEBUG";
+    private static String user_ID;
     Bundle bundle = new Bundle();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         /*** Data ***/
 
         String timetable_data = getIntent().getStringExtra("timetable_data");
-        String user_ID = getIntent().getStringExtra("user_ID");
+        user_ID = getIntent().getStringExtra("user_ID");
 
         AccessCourseInfo courseInfo = new AccessCourseInfo();
         courseInfo.execute("http://" + IP_ADDRESS + "/courseInfo.php", user_ID);
@@ -48,9 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
         bundle.putString("user_ID", user_ID);
         bundle.putString("timetable_data", timetable_data);
-
-        Intent toAttendanceActivity = new Intent(MainActivity.this, AttendanceActivity.class);
-        toAttendanceActivity.putExtra("user_ID", user_ID );
 
         /*** Fragment ***/
 

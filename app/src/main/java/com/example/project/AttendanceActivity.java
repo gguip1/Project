@@ -21,22 +21,16 @@ import java.net.URL;
 public class AttendanceActivity extends AppCompatActivity {
     private static String IP_ADDRESS = "rldjqdus05.cafe24.com";
     private static String TAG = "DEBUG";
-
-    String course_name;
-    String user_ID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance);
 
-        user_ID = getIntent().getStringExtra("user_ID");
-        course_name = getIntent().getStringExtra("course_name");
+        String user_ID = getIntent().getStringExtra("user_ID");
+        String course_name = getIntent().getStringExtra("course_name");
 
         AccessDB task = new AccessDB();
         task.execute("http://" + IP_ADDRESS + "/attendanceInfo.php", user_ID, course_name);
-
-        TextView t1 = (TextView) findViewById(R.id.test111);
-        t1.setText(course_name);
     }
 
     private class AccessDB extends AsyncTask<String, Void, String> {
@@ -52,7 +46,8 @@ public class AttendanceActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            Log.d("result", result);
+            TextView t1 = (TextView) findViewById(R.id.test111);
+            t1.setText(result);
             progressDialog.dismiss();
         }
 
@@ -60,8 +55,8 @@ public class AttendanceActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
             String serverURL = (String)params[0];
             String user_id = (String)params[1];
-            String course_name = (String)params[2];
-            String postParameters = "user_id=" + user_id + "&course_name=" + course_name;
+            String attendance_name = (String)params[2];
+            String postParameters = "user_id=" + user_id + "&attendance_name=" + attendance_name;
             try {
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
