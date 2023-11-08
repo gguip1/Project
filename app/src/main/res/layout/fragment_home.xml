@@ -18,6 +18,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="312dp"
             android:background="@drawable/btn_login_activity"
+            android:enabled="false"
             android:text="출석체크"
             android:textColor="#FBF4F6"
             app:layout_constraintEnd_toEndOf="parent"

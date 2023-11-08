@@ -132,44 +132,21 @@ public class TimeTableFragment extends Fragment implements View.OnClickListener{
                 }
             }
         }
-        else{
+        else{ /** 시간표 테이블에 표시 **/
             JsonParsing jsonParsing = new JsonParsing();
             String[] data = jsonParsing.parsingData(timetable_data);
             // 입력된 JSON 형태의 String을 HashMap으로 변환
-            HashMap<String, String> first;
-            HashMap<String, String> second;
-            HashMap<String, String> third;
-            HashMap<String, String> fourth;
-            HashMap<String, String> fifth;
-            HashMap<String, String> sixth;
-            HashMap<String, String> seventh;
-            HashMap<String, String> eighth;
-            HashMap<String, String> ninth;
-            HashMap<String, String> tenth;
+            HashMap<String, String>[] timetablePeriod = new HashMap[jsonParsing.getIndex()];
             try {
-                first = jsonParsing.paramMap(data[0]);
-                second = jsonParsing.paramMap(data[1]);
-                third = jsonParsing.paramMap(data[2]);
-                fourth = jsonParsing.paramMap(data[3]);
-                fifth = jsonParsing.paramMap(data[4]);
-                sixth = jsonParsing.paramMap(data[5]);
-                seventh = jsonParsing.paramMap(data[6]);
-                eighth = jsonParsing.paramMap(data[7]);
-                ninth = jsonParsing.paramMap(data[8]);
-                tenth = jsonParsing.paramMap(data[9]);
+                for(int i = 0; i < jsonParsing.getIndex(); i++){
+                    timetablePeriod[i] = jsonParsing.paramMap(data[i]);
+                }
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
-            t[0][0].setText(first.get("mon")); t[0][1].setText(first.get("tue")); t[0][2].setText(first.get("wen")); t[0][3].setText(first.get("thu")); t[0][4].setText(first.get("fri"));
-            t[1][0].setText(second.get("mon")); t[1][1].setText(second.get("tue")); t[1][2].setText(second.get("wen")); t[1][3].setText(second.get("thu")); t[1][4].setText(second.get("fri"));
-            t[2][0].setText(third.get("mon")); t[2][1].setText(third.get("tue")); t[2][2].setText(third.get("wen")); t[2][3].setText(third.get("thu")); t[2][4].setText(third.get("fri"));
-            t[3][0].setText(fourth.get("mon")); t[3][1].setText(fourth.get("tue")); t[3][2].setText(fourth.get("wen")); t[3][3].setText(fourth.get("thu")); t[3][4].setText(fourth.get("fri"));
-            t[4][0].setText(fifth.get("mon")); t[4][1].setText(fifth.get("tue")); t[4][2].setText(fifth.get("wen")); t[4][3].setText(fifth.get("thu")); t[4][4].setText(fifth.get("fri"));
-            t[5][0].setText(sixth.get("mon")); t[5][1].setText(sixth.get("tue")); t[5][2].setText(sixth.get("wen")); t[5][3].setText(sixth.get("thu")); t[5][4].setText(sixth.get("fri"));
-            t[6][0].setText(seventh.get("mon")); t[6][1].setText(seventh.get("tue")); t[6][2].setText(seventh.get("wen")); t[6][3].setText(seventh.get("thu")); t[6][4].setText(seventh.get("fri"));
-            t[7][0].setText(eighth.get("mon")); t[7][1].setText(eighth.get("tue")); t[7][2].setText(eighth.get("wen")); t[7][3].setText(eighth.get("thu")); t[7][4].setText(eighth.get("fri"));
-            t[8][0].setText(ninth.get("mon")); t[8][1].setText(ninth.get("tue")); t[8][2].setText(ninth.get("wen")); t[8][3].setText(first.get("thu")); t[8][4].setText(ninth.get("fri"));
-            t[9][0].setText(tenth.get("mon")); t[9][1].setText(tenth.get("tue")); t[9][2].setText(tenth.get("wen")); t[9][3].setText(tenth.get("thu")); t[9][4].setText(tenth.get("fri"));
+            for(int j = 0; j < jsonParsing.getIndex(); j++){
+                    t[j][0].setText(timetablePeriod[j].get("mon")); t[j][1].setText(timetablePeriod[j].get("tue")); t[j][2].setText(timetablePeriod[j].get("wen")); t[j][3].setText(timetablePeriod[j].get("thu")); t[j][4].setText(timetablePeriod[j].get("fri"));
+            }
         }
 
         //시간표에 과목이 등록된 셀만 클릭이벤트 발생

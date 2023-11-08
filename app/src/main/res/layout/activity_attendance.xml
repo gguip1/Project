@@ -6,11 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".AttendanceActivity">
 
+    <ListView
+        android:id="@+id/attendanceList"
+        android:layout_width="184dp"
+        android:layout_height="362dp"
+        android:layout_marginStart="16dp"
+        android:clickable="false"
+        android:contextClickable="false"
+        android:longClickable="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.491" />
+
     <TextView
-        android:id="@+id/test111"
+        android:id="@+id/subjectText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test"
-        tools:layout_editor_absoluteX="54dp"
-        tools:layout_editor_absoluteY="73dp" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

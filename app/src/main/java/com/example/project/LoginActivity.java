@@ -193,6 +193,7 @@ public class LoginActivity extends AppCompatActivity {
             String userPassword = (String)params[2];
             String userPhoneNum = (String)params[3];
             String postParameters = "userID=" + userID + "&userPassword=" + userPassword + "&userPhoneNum=" + userPhoneNum;
+
             try {
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();

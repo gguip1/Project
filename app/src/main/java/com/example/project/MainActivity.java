@@ -4,15 +4,24 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.example.project.module.AccessDB;
 import com.google.android.material.navigation.NavigationBarView;
 
+import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
+import org.altbeacon.beacon.BeaconManager;
+import org.altbeacon.beacon.BeaconParser;
+import org.altbeacon.beacon.RangeNotifier;
+import org.altbeacon.beacon.Region;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -20,16 +29,42 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BeaconConsumer {
     HomeFragment homeFragment;
     TimeTableFragment timeTableFragment;
     InfoFragment infoFragment;
-
+    private BeaconManager beaconManager;
+    private List<Beacon> beaconList = new ArrayList<>();
     private static String IP_ADDRESS = "rldjqdus05.cafe24.com";
     private static String TAG = "DEBUG";
     private static String user_ID;
     Bundle bundle = new Bundle();
+
+    String courseInfoData;
+    String studentInfoData;
+    @Override
+    public void onBeaconServiceConnect() {
+        beaconManager.setRangeNotifier(new RangeNotifier() {
+            @Override
+            public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
+                if (beacons.size() > 0) {
+                    beaconList.clear();
+                    for (Beacon beacon : beacons) {
+                        beaconList.add(beacon);
+                        homeFragment.attendance_check.setText("비콘 추가");
+                    }
+                }
+            }
+        });
+        try {
+            beaconManager.startRangingBeaconsInRegion(new Region("myRangingUniqueId", null, null, null));
+        } catch (RemoteException e) {   }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,14 +75,27 @@ public class MainActivity extends AppCompatActivity {
         String timetable_data = getIntent().getStringExtra("timetable_data");
         user_ID = getIntent().getStringExtra("user_ID");
 
-        AccessCourseInfo courseInfo = new AccessCourseInfo();
-        courseInfo.execute("http://" + IP_ADDRESS + "/courseInfo.php", user_ID);
+        AccessDB courseInfo = new AccessDB(MainActivity.this);
+        AccessDB studentInfo = new AccessDB(MainActivity.this);
+        try {
+            courseInfoData = courseInfo.execute("http://" + IP_ADDRESS + "/courseInfo.php", user_ID).get();
+            studentInfoData = studentInfo.execute("http://" + IP_ADDRESS + "/studentInfo.php", user_ID).get();
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
-        AccessStudentInfo studentInfo = new AccessStudentInfo();
-        studentInfo.execute("http://" + IP_ADDRESS + "/studentInfo.php", user_ID);
-
+        bundle.putString("course_data", courseInfoData);
         bundle.putString("user_ID", user_ID);
         bundle.putString("timetable_data", timetable_data);
+        bundle.putString("student_data", studentInfoData);
+
+        /** Beacon **/
+        beaconManager = BeaconManager.getInstanceForApplication(this);
+        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
+        beaconManager.bind(this);
+        handler.sendEmptyMessage(0);
 
         /*** Fragment ***/
 
@@ -70,21 +118,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.home) {
-                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.to_left, R.anim.no_animation).replace(R.id.containers, homeFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.containers, homeFragment).commit();
+//                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.to_left, R.anim.no_animation).replace(R.id.containers, homeFragment).commit();
                     before[0] = 0;
                     return true;
                 } else if (item.getItemId() == R.id.timetable) {
                     if(before[0] == 0){
-//                        Log.d("value", "0");
-                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.to_right, R.anim.no_animation).replace(R.id.containers, timeTableFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.containers, timeTableFragment).commit();
+//                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.to_right, R.anim.no_animation).replace(R.id.containers, timeTableFragment).commit();
                     }
                     else if(before[0] == 1){
-//                        Log.d("value", "1");
-                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.to_left, R.anim.no_animation).replace(R.id.containers, timeTableFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.containers, timeTableFragment).commit();
+//                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.to_left, R.anim.no_animation).replace(R.id.containers, timeTableFragment).commit();
                     }
                     return true;
                 } else if (item.getItemId() == R.id.info) {
-                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.to_right, R.anim.no_animation).replace(R.id.containers, infoFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.containers, infoFragment).commit();
+//                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.to_right, R.anim.no_animation).replace(R.id.containers, infoFragment).commit();
                     before[0] = 1;
                     return true;
                 }
@@ -93,149 +143,32 @@ public class MainActivity extends AppCompatActivity {
         }
         );
     }
-    private class AccessCourseInfo extends AsyncTask<String, Void, String> {
-        ProgressDialog progressDialog;
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = ProgressDialog.show(MainActivity.this,
-                    "잠시만 기다려 주세요.", null, true, true); /** progressDialog 디자인 수정 필요 **/
-        }
+    Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            homeFragment.attendance_check.setText("");
 
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            bundle.putString("course_data", result);
-            Log.d("result", result);
-            progressDialog.dismiss();
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            String serverURL = (String)params[0];
-            String user_id = (String)params[1];
-            String postParameters = "user_id=" + user_id;
-            try {
-                URL url = new URL(serverURL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-
-                httpURLConnection.setReadTimeout(5000);
-                httpURLConnection.setConnectTimeout(5000);
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.connect();
-
-
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                outputStream.write(postParameters.getBytes("UTF-8"));
-                outputStream.flush();
-                outputStream.close();
-
-
-                int responseStatusCode = httpURLConnection.getResponseCode();
-                Log.d(TAG, "POST response code - " + responseStatusCode);
-
-                InputStream inputStream;
-                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
-                    inputStream = httpURLConnection.getInputStream();
-                }
-                else{
-                    inputStream = httpURLConnection.getErrorStream();
-                }
-
-
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-
-                while((line = bufferedReader.readLine()) != null){
-                    sb.append(line);
-                }
-
-                bufferedReader.close();
-
-                return sb.toString();
-            } catch (Exception e) {
-                Log.d(TAG, "InsertData: Error ", e);
-                return new String("Error: " + e.getMessage());
+            // 비콘이 아무것도 없으면
+            if(beaconList.isEmpty() || homeFragment.now_class.isEmpty()){
+                homeFragment.attendance_check.setEnabled(false);
+                homeFragment.attendance_check.setBackgroundColor(Color.parseColor("#aaaaaa"));
             }
+            // 비콘의 아이디와 거리를 측정하여 textView에 넣는다.
+            for (Beacon beacon : beaconList) {
+                int major = beacon.getId2().toInt(); //beacon major
 
-        }
-    }
-
-    private class AccessStudentInfo extends AsyncTask<String, Void, String> {
-        ProgressDialog progressDialog;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = ProgressDialog.show(MainActivity.this,
-                    "잠시만 기다려 주세요.", null, true, true); /** progressDialog 디자인 수정 필요 **/
-        }
-
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            bundle.putString("student_data", result.toString());
-            Log.d("result", result);
-            progressDialog.dismiss();
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            String serverURL = (String)params[0];
-            String user_id = (String)params[1];
-            String postParameters = "user_id=" + user_id;
-            try {
-                URL url = new URL(serverURL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-
-                httpURLConnection.setReadTimeout(5000);
-                httpURLConnection.setConnectTimeout(5000);
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.connect();
-
-
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                outputStream.write(postParameters.getBytes("UTF-8"));
-                outputStream.flush();
-                outputStream.close();
-
-
-                int responseStatusCode = httpURLConnection.getResponseCode();
-                Log.d(TAG, "POST response code - " + responseStatusCode);
-
-                InputStream inputStream;
-                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
-                    inputStream = httpURLConnection.getInputStream();
+                if(major == 4660){
+                    homeFragment.attendance_check.setEnabled(true);
+                    homeFragment.attendance_check.setBackgroundColor(Color.parseColor("#f5c47e"));
+                    beaconList.clear();
                 }
-                else{
-                    inputStream = httpURLConnection.getErrorStream();
+                else {
+                    homeFragment.attendance_check.setEnabled(false);
+                    homeFragment.attendance_check.setBackgroundColor(Color.parseColor("#aaaaaa"));
                 }
-
-
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-
-                while((line = bufferedReader.readLine()) != null){
-                    sb.append(line);
-                }
-
-                bufferedReader.close();
-
-                return sb.toString();
-            } catch (Exception e) {
-                Log.d(TAG, "InsertData: Error ", e);
-                return new String("Error: " + e.getMessage());
+                //textView.setText("ID : " + beacon.getId2() + " / " + "Distance : " + Double.parseDouble(String.format("%.3f", beacon.getDistance())) + "m\n");
             }
-
+            handler.sendEmptyMessageDelayed(0, 1000);
         }
-    }
+    };
 }
