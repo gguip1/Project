@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="#FBF8F4">
+    android:background="@color/secondary"
+    tools:context=".MainActivity">
 
     <FrameLayout
         android:id="@+id/containers"
@@ -21,10 +21,11 @@
         android:layout_gravity="bottom"
         android:visibility="visible"
         app:itemActiveIndicatorStyle="@null"
-        app:itemIconTint="@drawable/bottomnav_selector_main_activity"
         app:itemBackground="@color/white"
         app:itemIconSize="32dp"
-        app:labelVisibilityMode="selected"
+        app:itemIconTint="@drawable/bottomnav_selector_main_activity"
+        app:itemTextColor="@color/black"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

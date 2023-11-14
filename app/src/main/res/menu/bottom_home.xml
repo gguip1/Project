@@ -5,8 +5,9 @@
     <item
         android:id="@+id/home"
         android:enabled="true"
-        android:icon="@drawable/ic_home_bottomnav"
-        android:title=""
+        android:icon="@drawable/ic_check_box"
+        android:title="출석체크"
+        app:itemIconSize="20dp"
         app:showAsAction="always"
         />
 
@@ -14,14 +15,16 @@
         android:id="@+id/timetable"
         android:enabled="true"
         android:icon="@drawable/ic_timetable_bottomnav"
-        android:title=""
+        android:title="시간표"
+        app:itemIconSize="20dp"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/info"
         android:enabled="true"
         android:icon="@drawable/ic_info_bottomnav"
-        android:title=""
+        android:title="내 정보"
+        app:itemIconSize="20dp"
         app:showAsAction="always"
         />
 </menu>

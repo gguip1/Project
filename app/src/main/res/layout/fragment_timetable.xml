@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TimeTableFragment"
-    android:background="#FBF4F6">
+    android:background="@color/secondary">
 
 
     <!-- TODO: Update blank fragment layout -->
@@ -13,32 +13,31 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <TextView
             android:id="@+id/timetable_Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:gravity="center"
             android:text="시간표"
+            android:textAlignment="center"
             android:textSize="36dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.051"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <TableLayout
             android:id="@+id/timeTable"
-            android:layout_width="380dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:stretchColumns="*"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/timetable_Title"
-            app:layout_constraintVertical_bias="0.326">
+            app:layout_constraintTop_toTopOf="parent">
 
             <TableRow>
 
@@ -52,7 +51,8 @@
 
                 <TextView
                     android:id="@+id/monDay"
-                    android:fontFamily="@font/gmarketsansttfbold"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttfmedium"
                     android:gravity="center"
                     android:text="월요일"
                     android:textAlignment="center"
@@ -61,7 +61,8 @@
 
                 <TextView
                     android:id="@+id/tuesDay"
-                    android:fontFamily="@font/gmarketsansttfbold"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttfmedium"
                     android:gravity="center"
                     android:text="화요일"
                     android:textAlignment="center"
@@ -70,7 +71,8 @@
 
                 <TextView
                     android:id="@+id/wednesday"
-                    android:fontFamily="@font/gmarketsansttfbold"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttfmedium"
                     android:gravity="center"
                     android:text="수요일"
                     android:textAlignment="center"
@@ -79,7 +81,8 @@
 
                 <TextView
                     android:id="@+id/thursDay"
-                    android:fontFamily="@font/gmarketsansttfbold"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttfmedium"
                     android:gravity="center"
                     android:text="목요일"
                     android:textAlignment="center"
@@ -88,7 +91,8 @@
 
                 <TextView
                     android:id="@+id/friDay"
-                    android:fontFamily="@font/gmarketsansttfbold"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttfmedium"
                     android:gravity="center"
                     android:text="금요일"
                     android:textAlignment="center"
@@ -101,7 +105,8 @@
 
                 <TextView
                     android:id="@+id/first"
-                    android:fontFamily="@font/gmarketsansttfbold"
+                    android:layout_height="60dp"
+                    android:fontFamily="@font/gmarketsansttfmedium"
                     android:gravity="center"
                     android:text="1"
                     android:textAlignment="center"
@@ -111,55 +116,55 @@
                 <TextView
                     android:id="@+id/t00"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="#FBF4F6"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
                     android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t01"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="#FBF4F6"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
                     android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t02"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="#FBF4F6"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
                     android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t03"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="#FBF4F6"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
                     android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t04"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="#FBF4F6"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
                     android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
             </TableRow>
@@ -168,7 +173,8 @@
 
                 <TextView
                     android:id="@+id/second"
-                    android:fontFamily="@font/gmarketsansttfbold"
+                    android:layout_height="60dp"
+                    android:fontFamily="@font/gmarketsansttfmedium"
                     android:gravity="center"
                     android:text="2"
                     android:textAlignment="center"
@@ -177,51 +183,56 @@
 
                 <TextView
                     android:id="@+id/t10"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t11"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t12"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t13"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t14"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
             </TableRow>
@@ -230,7 +241,8 @@
 
                 <TextView
                     android:id="@+id/third"
-                    android:fontFamily="@font/gmarketsansttfbold"
+                    android:layout_height="60dp"
+                    android:fontFamily="@font/gmarketsansttfmedium"
                     android:gravity="center"
                     android:text="3"
                     android:textAlignment="center"
@@ -239,51 +251,56 @@
 
                 <TextView
                     android:id="@+id/t20"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t21"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t22"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t23"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t24"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
             </TableRow>
@@ -292,7 +309,8 @@
 
                 <TextView
                     android:id="@+id/fourth"
-                    android:fontFamily="@font/gmarketsansttfbold"
+                    android:layout_height="60dp"
+                    android:fontFamily="@font/gmarketsansttfmedium"
                     android:gravity="center"
                     android:text="4"
                     android:textAlignment="center"
@@ -301,52 +319,57 @@
 
                 <TextView
                     android:id="@+id/t30"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t31"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t32"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t33"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
 
                 <TextView
                     android:id="@+id/t34"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
             </TableRow>
@@ -355,7 +378,8 @@
 
                 <TextView
                     android:id="@+id/fifth"
-                    android:fontFamily="@font/gmarketsansttfbold"
+                    android:layout_height="60dp"
+                    android:fontFamily="@font/gmarketsansttfmedium"
                     android:gravity="center"
                     android:text="5"
                     android:textAlignment="center"
@@ -364,51 +388,56 @@
 
                 <TextView
                     android:id="@+id/t40"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t41"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t42"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t43"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t44"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
             </TableRow>
@@ -417,7 +446,8 @@
 
                 <TextView
                     android:id="@+id/sixth"
-                    android:fontFamily="@font/gmarketsansttfbold"
+                    android:layout_height="60dp"
+                    android:fontFamily="@font/gmarketsansttfmedium"
                     android:gravity="center"
                     android:text="6"
                     android:textAlignment="center"
@@ -426,51 +456,56 @@
 
                 <TextView
                     android:id="@+id/t50"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t51"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t52"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t53"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t54"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
             </TableRow>
@@ -479,7 +514,8 @@
 
                 <TextView
                     android:id="@+id/seventh"
-                    android:fontFamily="@font/gmarketsansttfbold"
+                    android:layout_height="60dp"
+                    android:fontFamily="@font/gmarketsansttfmedium"
                     android:gravity="center"
                     android:text="7"
                     android:textAlignment="center"
@@ -488,51 +524,56 @@
 
                 <TextView
                     android:id="@+id/t60"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t61"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t62"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t63"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t64"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
             </TableRow>
@@ -541,7 +582,8 @@
 
                 <TextView
                     android:id="@+id/eighth"
-                    android:fontFamily="@font/gmarketsansttfbold"
+                    android:layout_height="60dp"
+                    android:fontFamily="@font/gmarketsansttfmedium"
                     android:gravity="center"
                     android:text="8"
                     android:textAlignment="center"
@@ -550,51 +592,56 @@
 
                 <TextView
                     android:id="@+id/t70"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t71"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t72"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t73"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t74"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
             </TableRow>
@@ -603,7 +650,8 @@
 
                 <TextView
                     android:id="@+id/ninth"
-                    android:fontFamily="@font/gmarketsansttfbold"
+                    android:layout_height="60dp"
+                    android:fontFamily="@font/gmarketsansttfmedium"
                     android:gravity="center"
                     android:text="9"
                     android:textAlignment="center"
@@ -612,51 +660,56 @@
 
                 <TextView
                     android:id="@+id/t80"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t81"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t82"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t83"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t84"
-                    android:gravity="center"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
+                    android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
             </TableRow>
@@ -665,7 +718,8 @@
 
                 <TextView
                     android:id="@+id/tenth"
-                    android:fontFamily="@font/gmarketsansttfbold"
+                    android:layout_height="60dp"
+                    android:fontFamily="@font/gmarketsansttfmedium"
                     android:gravity="center"
                     android:text="10"
                     android:textAlignment="center"
@@ -674,51 +728,56 @@
 
                 <TextView
                     android:id="@+id/t90"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
                     android:gravity="center"
                     android:textAlignment="center"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t91"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
                     android:gravity="center"
                     android:textAlignment="center"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t92"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
                     android:gravity="center"
                     android:textAlignment="center"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t93"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
                     android:gravity="center"
                     android:textAlignment="center"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/t94"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarketsansttflight"
                     android:gravity="center"
                     android:textAlignment="center"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
             </TableRow>

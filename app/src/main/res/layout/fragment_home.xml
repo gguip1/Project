@@ -5,37 +5,66 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeFragment"
-    android:background="#FBF8F4">
+    android:background="@color/secondary">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <View
+            android:id="@+id/rectangle_1"
+            android:layout_width="335dp"
+            android:layout_height="188dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/default_rectangle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/userID_Info" />
+
+        <View
+            android:id="@+id/icon_check"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/ic_check_box"
+            app:layout_constraintEnd_toEndOf="@+id/rectangle_1"
+            app:layout_constraintHorizontal_bias="0.031"
+            app:layout_constraintStart_toStartOf="@+id/rectangle_1"
+            app:layout_constraintTop_toTopOf="@+id/rectangle_1" />
+
         <android.widget.Button
             android:id="@+id/attendance_check"
-            android:layout_width="100dp"
+            android:layout_width="300dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:layout_marginTop="312dp"
-            android:background="@drawable/btn_login_activity"
+            android:layout_marginTop="168dp"
+            android:background="@drawable/button_off_home_frag"
             android:enabled="false"
-            android:text="출석체크"
-            android:textColor="#FBF4F6"
+            android:fontFamily="@font/gmarketsansttfmedium"
+            android:text="비활성화"
+            android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/userID_Info"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:gravity="center"
             android:text="출석체크"
+            android:textAlignment="center"
             android:textSize="36dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.051"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,14 +72,13 @@
             android:id="@+id/date"
             android:layout_width="300dp"
             android:layout_height="50dp"
-            android:layout_marginTop="100dp"
-            android:background="@drawable/round_main_activity"
-            android:fontFamily="@font/gmarketsansttfbold"
+            android:layout_marginTop="108dp"
+            android:fontFamily="@font/gmarketsansttflight"
             android:gravity="center"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.482"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

@@ -46,6 +46,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        editTextID = (EditText) findViewById(R.id.userID_Text);
+        editTextPassword = (EditText) findViewById(R.id.password_Text);
+        Button buttonInsert = (Button)findViewById(R.id.login_Button);
+        checkBoxAutoLogin=(CheckBox)findViewById(R.id.autologin_checkBox);
+
         // 어플리케이션 권한 확인 절차
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED &&
@@ -64,27 +69,6 @@ public class LoginActivity extends AppCompatActivity {
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
 
         userPhoneNum = telephonyManager.getLine1Number();
-        editTextID = (EditText) findViewById(R.id.userID_Text);
-        editTextPassword = (EditText) findViewById(R.id.password_Text);
-        Button buttonInsert = (Button)findViewById(R.id.login_Button);
-        checkBoxAutoLogin=(CheckBox)findViewById(R.id.autologin_checkBox);
-
-        // 전에 실행했을 때 자동로그인 체크박스값 가져오기
-        boolean boo = SharedPreferencesManager.getBoolean(LoginActivity.this,"check");
-        if(boo == true){ // 체크가 되어있었다면 아래 코드를 수행
-            Map<String, String> loginInfo = SharedPreferencesManager.getLoginInfo(this);
-            if (!loginInfo.isEmpty() && loginInfo.get("id") != ""){
-                userID = loginInfo.get("id");
-                userPassword = loginInfo.get("password");
-                id = loginInfo.get("id");
-                password = loginInfo.get("password");
-                checkBoxAutoLogin.setChecked(true);
-                // 데이터베이스 접근
-                AccessDB task = new AccessDB();
-                task.execute("http://" + IP_ADDRESS + "/signup.php", userID, userPassword, userPhoneNum);
-            }
-        }
-
         buttonInsert.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -111,6 +95,22 @@ public class LoginActivity extends AppCompatActivity {
                 editTextPassword.setText("");
             }
         });
+
+        // 전에 실행했을 때 자동로그인 체크박스값 가져오기
+        boolean boo = SharedPreferencesManager.getBoolean(LoginActivity.this,"check");
+        if(boo == true){ // 체크가 되어있었다면 아래 코드를 수행
+            Map<String, String> loginInfo = SharedPreferencesManager.getLoginInfo(this);
+            if (!loginInfo.isEmpty() && loginInfo.get("id") != ""){
+                userID = loginInfo.get("id");
+                userPassword = loginInfo.get("password");
+                id = loginInfo.get("id");
+                password = loginInfo.get("password");
+                checkBoxAutoLogin.setChecked(true);
+                // 데이터베이스 접근
+                AccessDB task = new AccessDB();
+                task.execute("http://" + IP_ADDRESS + "/signup.php", userID, userPassword, userPhoneNum);
+            }
+        }
     }
 
     private class AccessDB extends AsyncTask<String, Void, String> {

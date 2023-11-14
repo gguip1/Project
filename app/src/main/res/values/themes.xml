@@ -8,7 +8,7 @@
     </style>
     <style name="Theme.Project" parent="Base.Theme.Project" />
     <style name="Theme.SeeMeet.TransparentStatusBar" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:statusBarColor" tools:targetApi="l">#FBF4F6</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/secondary</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>

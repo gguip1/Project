@@ -3,14 +3,11 @@ package com.example.project;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.RemoteException;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.project.module.AccessDB;
@@ -23,12 +20,6 @@ import org.altbeacon.beacon.BeaconParser;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -56,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer {
                     beaconList.clear();
                     for (Beacon beacon : beacons) {
                         beaconList.add(beacon);
-                        homeFragment.attendance_check.setText("비콘 추가");
+                        //비콘 추가
                     }
                 }
             }
@@ -146,27 +137,33 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer {
 
     Handler handler = new Handler() {
         public void handleMessage(Message msg) {
-            homeFragment.attendance_check.setText("");
-
             // 비콘이 아무것도 없으면
-            if(beaconList.isEmpty() || homeFragment.now_class.isEmpty()){
+//            if(beaconList.isEmpty() || homeFragment.now_class.isEmpty()){
+            if(beaconList.isEmpty()){
                 homeFragment.attendance_check.setEnabled(false);
-                homeFragment.attendance_check.setBackgroundColor(Color.parseColor("#aaaaaa"));
+                homeFragment.attendance_check.setTextColor(Color.parseColor("#000000"));
+                homeFragment.attendance_check.setText("비활성화");
+                homeFragment.attendance_check.setBackgroundResource(R.drawable.button_off_home_frag);
+//                homeFragment.attendance_check.setBackgroundColor(Color.parseColor("#F6F4FB"));
             }
-            // 비콘의 아이디와 거리를 측정하여 textView에 넣는다.
-            for (Beacon beacon : beaconList) {
-                int major = beacon.getId2().toInt(); //beacon major
-
-                if(major == 4660){
-                    homeFragment.attendance_check.setEnabled(true);
-                    homeFragment.attendance_check.setBackgroundColor(Color.parseColor("#f5c47e"));
-                    beaconList.clear();
+            else{
+                // 비콘의 아이디와 거리를 측정하여 textView에 넣는다.
+                for (Beacon beacon : beaconList) {
+                    int major = beacon.getId2().toInt(); //beacon major
+                    if(major == 4660){
+                        homeFragment.attendance_check.setEnabled(true);
+                        homeFragment.attendance_check.setTextColor(Color.parseColor("#FFFFFF"));
+                        homeFragment.attendance_check.setText("출석체크");
+                        homeFragment.attendance_check.setBackgroundResource(R.drawable.button_on_home_frag);
+//                        homeFragment.attendance_check.setBackgroundColor(Color.parseColor("#618EFF"));
+                        beaconList.clear();
+                    }
+                    else {
+                        homeFragment.attendance_check.setEnabled(false);
+                        homeFragment.attendance_check.setBackgroundColor(Color.parseColor("#aaaaaa"));
+                    }
+                    //textView.setText("ID : " + beacon.getId2() + " / " + "Distance : " + Double.parseDouble(String.format("%.3f", beacon.getDistance())) + "m\n");
                 }
-                else {
-                    homeFragment.attendance_check.setEnabled(false);
-                    homeFragment.attendance_check.setBackgroundColor(Color.parseColor("#aaaaaa"));
-                }
-                //textView.setText("ID : " + beacon.getId2() + " / " + "Distance : " + Double.parseDouble(String.format("%.3f", beacon.getDistance())) + "m\n");
             }
             handler.sendEmptyMessageDelayed(0, 1000);
         }

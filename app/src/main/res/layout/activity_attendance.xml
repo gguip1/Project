@@ -4,28 +4,109 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/secondary"
     tools:context=".AttendanceActivity">
+
+    <View
+        android:id="@+id/rectangle_"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/default_rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/userID_Info" />
+    <View
+        android:id="@+id/rectangle_1"
+        android:layout_width="335dp"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/default_rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rectangle_" />
+
+    <TextView
+        android:id="@+id/userID_Info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/gmarketsansttfbold"
+        android:gravity="center"
+        android:text="출석현황"
+        android:textAlignment="center"
+        android:textSize="36dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ListView
         android:id="@+id/attendanceList"
-        android:layout_width="184dp"
-        android:layout_height="362dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="307dp"
+        android:layout_height="164dp"
         android:clickable="false"
         android:contextClickable="false"
         android:longClickable="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.491" />
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle_1"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_1"
+        app:layout_constraintStart_toStartOf="@+id/rectangle_1"
+        app:layout_constraintTop_toTopOf="@+id/rectangle_1"
+        app:layout_constraintVertical_bias="0.825" />
 
     <TextView
         android:id="@+id/subjectText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:fontFamily="@font/gmarketsansttflight"
         android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle_"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_"
+        app:layout_constraintStart_toStartOf="@+id/rectangle_"
+        app:layout_constraintTop_toTopOf="@+id/rectangle_" />
+
+    <TextView
+        android:id="@+id/currentClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gmarketsansttflight"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle_1"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_1"
+        app:layout_constraintStart_toStartOf="@+id/rectangle_1"
+        app:layout_constraintTop_toTopOf="@+id/rectangle_1"
+        app:layout_constraintVertical_bias="0.12" />
+
+    <View
+        android:id="@+id/icon_check"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/ic_check_box"
+        app:layout_constraintStart_toStartOf="@+id/rectangle_1"
+        app:layout_constraintTop_toTopOf="@+id/rectangle_1" />
+
+    <android.widget.Button
+        android:id="@+id/return_button"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/btn_login_activity"
+        android:fontFamily="@font/gmarketsansttflight"
+        android:text="돌아가기"
+        android:textColor="#FBF4F6"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/rectangle_1" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

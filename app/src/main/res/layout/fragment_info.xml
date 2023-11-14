@@ -5,36 +5,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".InfoFragment"
-    android:background="#FBF8F4">
+    android:background="@color/secondary">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <View
+            android:id="@+id/rectangle_1"
+            android:layout_width="335dp"
+            android:layout_height="145dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/default_rectangle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/userID_Info" />
+
         <android.widget.Button
             android:id="@+id/logout_Button"
-            android:layout_width="300dp"
+            android:layout_width="335dp"
             android:layout_height="50dp"
             android:layout_gravity="bottom"
+            android:layout_marginTop="16dp"
             android:background="@drawable/btn_login_activity"
+            android:fontFamily="@font/gmarketsansttflight"
             android:text="로그아웃"
             android:textColor="#FBF4F6"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.483"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/rectangle_1" />
 
         <TextView
             android:id="@+id/userID_Info"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:gravity="center"
             android:text="내 정보"
             android:textSize="36dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.051"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,17 +57,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/gmarketsansttflight"
             android:text="student_department"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userID_Info" />
+            app:layout_constraintStart_toStartOf="@+id/rectangle_1"
+            app:layout_constraintTop_toTopOf="@+id/rectangle_1" />
 
         <TextView
             android:id="@+id/student_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/gmarketsansttflight"
             android:text="student_id"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/rectangle_1"
             app:layout_constraintTop_toBottomOf="@+id/student_department" />
 
         <TextView
@@ -61,8 +79,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/gmarketsansttflight"
             android:text="student_grade"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/rectangle_1"
             app:layout_constraintTop_toBottomOf="@+id/student_id" />
 
         <TextView
@@ -70,8 +90,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:text="student_name"
-            app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="@font/gmarketsansttflight"
+            app:layout_constraintStart_toStartOf="@+id/rectangle_1"
             app:layout_constraintTop_toBottomOf="@+id/student_grade" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

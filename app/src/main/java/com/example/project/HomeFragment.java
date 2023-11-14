@@ -57,6 +57,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     /** 현재 수업 TextView **/
     private TextView currentClass;
     /** 현재 수업과 비콘에서 사용하는 handler **/
+    private TextView debug;
     static String user_ID;
     String resultData;
     String input_data;
@@ -105,7 +106,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         String user_ID = this.getArguments().getString("user_ID");
         AccessDB task = new AccessDB(getContext());
-        Log.d("resultData", user_ID + " : " + String.valueOf(week_of_year - 34) + " : " + String.valueOf(day_of_month) + String.valueOf(date) + " : " + String.valueOf(period)  + " : " +  String.valueOf(hour_of_day));
+//        Log.d("resultData", user_ID + " : " + String.valueOf(week_of_year - 34) + " : " + String.valueOf(day_of_month) + String.valueOf(date) + " : " + String.valueOf(period)  + " : " +  String.valueOf(hour_of_day));
         try {
             resultData = task.execute("http://" + IP_ADDRESS + "/attendance.php", user_ID, String.valueOf(week_of_year - 34), String.valueOf(day_of_month) + String.valueOf(date), String.valueOf(period), now_class).get();
         } catch (ExecutionException e) {
@@ -113,7 +114,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        Log.d("resultData", resultData);
+        debug.setText(String.valueOf(day_of_month));
+//        Log.d("resultData", resultData);
+//        Log.d("resultData", now_class);
     }
     @Override
     public void onDestroy(){
@@ -142,12 +145,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         int checkTime = Integer.parseInt(currentDateTime);
 
         dayWeek = cal.get(Calendar.DAY_OF_WEEK);
-        day_of_month = cal.get(Calendar.DAY_OF_MONTH) + 1;
+        day_of_month = cal.get(Calendar.MONTH) + 1;
         week_of_year = cal.get(Calendar.WEEK_OF_YEAR);
         hour_of_day = cal.get(Calendar.HOUR_OF_DAY);
         date = cal.get(Calendar.DATE);
 
-//        Log.d("dayWeek_Debug", String.valueOf(dayWeek));
+//        Log.d("asdf", String.valueOf(week_of_year-34));
 //        Log.d("checkTime_Debug", String.valueOf(checkTime));
 
         input_data = this.getArguments().getString("timetable_data");
@@ -178,7 +181,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                         currentClass.setText("현재 수업이 없습니다.");
                     }
                     else{
-                        currentClass.setText("현재수업 : " + now_class);
+                        currentClass.setText(now_class);
                     }
                     break;
                 case 3:
@@ -187,7 +190,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                         currentClass.setText("현재 수업이 없습니다.");
                     }
                     else{
-                        currentClass.setText("현재수업 : " + now_class);
+                        currentClass.setText(now_class);
                     }
                     break;
                 case 4:
@@ -196,7 +199,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                         currentClass.setText("현재 수업이 없습니다.");
                     }
                     else{
-                        currentClass.setText("현재수업 : " + now_class);
+                        currentClass.setText(now_class);
                     }
                     break;
                 case 5:
@@ -205,7 +208,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                         currentClass.setText("현재 수업이 없습니다.");
                     }
                     else{
-                        currentClass.setText("현재수업 : " + now_class);
+                        currentClass.setText(now_class);
                     }
                     break;
                 case 6:
@@ -214,7 +217,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                         currentClass.setText("현재 수업이 없습니다.");
                     }
                     else{
-                        currentClass.setText("현재수업 : " + now_class);
+                        currentClass.setText(now_class);
                     }
                     break;
                 default:
