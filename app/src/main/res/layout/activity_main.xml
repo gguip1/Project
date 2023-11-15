@@ -20,6 +20,8 @@
         android:layout_height="60dp"
         android:layout_gravity="bottom"
         android:visibility="visible"
+        app:itemTextAppearanceInactive="@style/navFont"
+        app:itemTextAppearanceActive="@style/navFont"
         app:itemActiveIndicatorStyle="@null"
         app:itemBackground="@color/white"
         app:itemIconSize="32dp"

@@ -116,7 +116,7 @@ public class AttendanceActivity extends AppCompatActivity {
                 attendance_check = "결석";
             else
                 attendance_check = "출결 등록 이전";
-            itemList.add("강의주차 : " + dataHashMap[i].get("attendance_week") + "주차" + "\n수업 교시 :" + dataHashMap[i].get("attendance_time") + "교시" + "\n출석여부 : " + attendance_check);
+            itemList.add("강의주차 : " + dataHashMap[i].get("attendance_week") + "주차" + "   수업 교시 :" + dataHashMap[i].get("attendance_time") + "교시" + "\n출석여부 : " + attendance_check);
         }
 
         int rate = attendance*100/jsonParsing.getIndex();
@@ -124,7 +124,8 @@ public class AttendanceActivity extends AppCompatActivity {
 
 //        Log.d("asdf", String.valueOf(current_week));
         currentClass.setText("현재 주차 : " + current_week + "주차");
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,itemList);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.listview_layout,itemList);
         attendanceList.setAdapter(adapter);
 
         Button return_button = findViewById(R.id.return_button);
