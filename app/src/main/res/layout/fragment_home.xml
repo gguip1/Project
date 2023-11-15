@@ -24,6 +24,18 @@
             app:layout_constraintTop_toTopOf="@+id/userID_Info" />
 
         <View
+            android:id="@+id/rectangle_2"
+            android:layout_width="335dp"
+            android:layout_height="188dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/default_rectangle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rectangle_1" />
+
+        <View
             android:id="@+id/icon_check"
             android:layout_width="48dp"
             android:layout_height="48dp"

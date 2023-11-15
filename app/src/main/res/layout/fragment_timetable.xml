@@ -55,6 +55,7 @@
                     android:fontFamily="@font/gmarketsansttfmedium"
                     android:gravity="center"
                     android:text="월요일"
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
@@ -65,6 +66,7 @@
                     android:fontFamily="@font/gmarketsansttfmedium"
                     android:gravity="center"
                     android:text="화요일"
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
@@ -75,6 +77,7 @@
                     android:fontFamily="@font/gmarketsansttfmedium"
                     android:gravity="center"
                     android:text="수요일"
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
@@ -85,6 +88,7 @@
                     android:fontFamily="@font/gmarketsansttfmedium"
                     android:gravity="center"
                     android:text="목요일"
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />
@@ -95,6 +99,7 @@
                     android:fontFamily="@font/gmarketsansttfmedium"
                     android:gravity="center"
                     android:text="금요일"
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     tools:layout_editor_absoluteX="71dp"
                     tools:layout_editor_absoluteY="29dp" />

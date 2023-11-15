@@ -106,7 +106,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         String user_ID = this.getArguments().getString("user_ID");
         AccessDB task = new AccessDB(getContext());
-//        Log.d("resultData", user_ID + " : " + String.valueOf(week_of_year - 34) + " : " + String.valueOf(day_of_month) + String.valueOf(date) + " : " + String.valueOf(period)  + " : " +  String.valueOf(hour_of_day));
+//        Log.d("출석등록", user_ID + " : " + String.valueOf(week_of_year - 34) + " : " + String.valueOf(day_of_month) + String.valueOf(date) + " : " + String.valueOf(period) + " : " + now_class);
         try {
             resultData = task.execute("http://" + IP_ADDRESS + "/attendance.php", user_ID, String.valueOf(week_of_year - 34), String.valueOf(day_of_month) + String.valueOf(date), String.valueOf(period), now_class).get();
         } catch (ExecutionException e) {
@@ -114,7 +114,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        debug.setText(String.valueOf(day_of_month));
 //        Log.d("resultData", resultData);
 //        Log.d("resultData", now_class);
     }

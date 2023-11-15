@@ -109,23 +109,23 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.home) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.containers, homeFragment).commit();
-//                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.to_left, R.anim.no_animation).replace(R.id.containers, homeFragment).commit();
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.containers, homeFragment).commit();
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.to_left, R.anim.no_animation).replace(R.id.containers, homeFragment).commit();
                     before[0] = 0;
                     return true;
                 } else if (item.getItemId() == R.id.timetable) {
                     if(before[0] == 0){
-                        getSupportFragmentManager().beginTransaction().replace(R.id.containers, timeTableFragment).commit();
-//                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.to_right, R.anim.no_animation).replace(R.id.containers, timeTableFragment).commit();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.containers, timeTableFragment).commit();
+                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.to_right, R.anim.no_animation).replace(R.id.containers, timeTableFragment).commit();
                     }
                     else if(before[0] == 1){
-                        getSupportFragmentManager().beginTransaction().replace(R.id.containers, timeTableFragment).commit();
-//                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.to_left, R.anim.no_animation).replace(R.id.containers, timeTableFragment).commit();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.containers, timeTableFragment).commit();
+                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.to_left, R.anim.no_animation).replace(R.id.containers, timeTableFragment).commit();
                     }
                     return true;
                 } else if (item.getItemId() == R.id.info) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.containers, infoFragment).commit();
-//                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.to_right, R.anim.no_animation).replace(R.id.containers, infoFragment).commit();
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.containers, infoFragment).commit();
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.to_right, R.anim.no_animation).replace(R.id.containers, infoFragment).commit();
                     before[0] = 1;
                     return true;
                 }

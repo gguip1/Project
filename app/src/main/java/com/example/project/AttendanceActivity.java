@@ -74,6 +74,8 @@ public class AttendanceActivity extends AppCompatActivity {
         String user_ID = getIntent().getStringExtra("user_ID");
         String course_name = getIntent().getStringExtra("course_name");
 
+        int attendance = 0;
+
         AccessDB task = new AccessDB(AttendanceActivity.this);
 
         try {
@@ -86,6 +88,7 @@ public class AttendanceActivity extends AppCompatActivity {
 
         TextView subjectText = (TextView) findViewById(R.id.subjectText);
         TextView currentClass = (TextView) findViewById(R.id.currentClass);
+        TextView attendanceRate = (TextView) findViewById(R.id.attendance_rate);
         ListView attendanceList = findViewById(R.id.attendanceList);
         List<String> itemList = new ArrayList<String>();
         JsonParsing jsonParsing = new JsonParsing();
@@ -105,14 +108,20 @@ public class AttendanceActivity extends AppCompatActivity {
         subjectText.setText("교과목명 : " + dataHashMap[0].get("attendance_name"));
         for(int i = 0; i < jsonParsing.getIndex(); i++){
             String attendance_check = dataHashMap[i].get("attendance_status");
-            if(attendance_check.equals("1"))
+            if(attendance_check.equals("1")){
                 attendance_check = "출석";
+                attendance++;
+            }
             else if(attendance_check.equals("0") && Integer.parseInt(dataHashMap[i].get("attendance_week")) <= current_week)
                 attendance_check = "결석";
             else
                 attendance_check = "출결 등록 이전";
             itemList.add("강의주차 : " + dataHashMap[i].get("attendance_week") + "주차" + "\n수업 교시 :" + dataHashMap[i].get("attendance_time") + "교시" + "\n출석여부 : " + attendance_check);
         }
+
+        int rate = attendance*100/jsonParsing.getIndex();
+        attendanceRate.setText("출석률 : " + rate + "%    " + attendance + "/" + jsonParsing.getIndex()); // 출석률
+
 //        Log.d("asdf", String.valueOf(current_week));
         currentClass.setText("현재 주차 : " + current_week + "주차");
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,itemList);

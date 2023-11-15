@@ -121,6 +121,7 @@ public class LoginActivity extends AppCompatActivity {
             super.onPreExecute();
             progressDialog = ProgressDialog.show(LoginActivity.this,
                     "잠시만 기다려 주세요.", null, true, true); /** progressDialog 디자인 수정 필요 **/
+            progressDialog.setMessage("첫 로그인 시 10~30초 정도 시간이 소요될 수 있습니다.");
         }
 
 
@@ -140,6 +141,8 @@ public class LoginActivity extends AppCompatActivity {
             // fail:3 = 데이터베이스에 중복된 아이디가 2개 이상일 경우 오류 데이터로 판단해서 해당하는 userID를 가지고 있는 모든 행을 제거
             // fail:4 = 입력한 userID와 일치하는 timetable_info의 데이터가 없음
 
+            Log.d("result", result);
+
             if(result != null){
                 if (result.equals(" \"empty:1\"") || result.equals(" \"empty:2\"") || result.equals(" \"empty:3\"")){ // editText에 입력이 없을 경우
                     Toast.makeText(getApplicationContext(), "로그인 정보를 입력해주세요.", Toast.LENGTH_LONG).show();
@@ -154,16 +157,17 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_LONG).show();
                 }
                 else if(result.equals(" \"fail:3\"")){
-                    SharedPreferencesManager.setLoginInfo(LoginActivity.this, id ,password);
-                    Intent toMainActivity = new Intent(LoginActivity.this, MainActivity.class);
-
-                    toMainActivity.putExtra("timetable_data", result); // 시간표 데이터 다음 액티비티에 전송
-
-                    toMainActivity.putExtra("user_ID", userID); // userID 다음 액티비티에 전송
-
-                    startActivity(toMainActivity);
-                    finish();
-                    Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_LONG).show();
+//                    SharedPreferencesManager.setLoginInfo(LoginActivity.this, id ,password);
+//                    Intent toMainActivity = new Intent(LoginActivity.this, MainActivity.class);
+//
+//                    toMainActivity.putExtra("timetable_data", result); // 시간표 데이터 다음 액티비티에 전송
+//
+//                    toMainActivity.putExtra("user_ID", userID); // userID 다음 액티비티에 전송
+//
+//                    startActivity(toMainActivity);
+//                    finish();
+//                    Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_LONG).show();
                 }
                 else if(result.equals(" \"fail:4\"")){  //로그인 실패할 경우
                     Toast.makeText(getApplicationContext(), "중복된 아이디가 발견되었습니다. 다시 로그인 해주세요.", Toast.LENGTH_LONG).show();
@@ -199,8 +203,8 @@ public class LoginActivity extends AppCompatActivity {
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
 
-                httpURLConnection.setReadTimeout(5000);
-                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setReadTimeout(30000);
+                httpURLConnection.setConnectTimeout(30000);
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.connect();
 
