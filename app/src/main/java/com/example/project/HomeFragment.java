@@ -18,6 +18,7 @@ import com.example.project.module.CurrentClass;
 import com.example.project.module.JsonParsing;
 
 import org.json.JSONException;
+import org.w3c.dom.Text;
 
 
 import java.text.ParseException;
@@ -63,6 +64,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     String input_data;
     Handler handler;
     Button attendance_check;
+
+    TextView resultMessage;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -100,6 +103,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         handler.post(updateDateTime);
 
+        resultMessage = (TextView) view.findViewById(R.id.resultMessage);
+
         return view;
     }
     @Override
@@ -114,8 +119,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        if(resultData.equals(" \"sucess:1\"")){
+            resultMessage.setText("해당 수업은 이미 출석이 완료되었습니다.");
+        }
+        else if(resultData.equals(" \"sucess:2\"")){
+            resultMessage.setText("출석이 완료되었습니다.");
+        }
+        else if(resultData.equals(" \"fail\"")){
+            resultMessage.setText("출석체크 실패");
+        }
+        else{
+            resultMessage.setText(resultData);
+        }
 //        Log.d("resultData", resultData);
 //        Log.d("resultData", now_class);
+
     }
     @Override
     public void onDestroy(){
@@ -223,6 +241,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                     currentClass.setText("현재 수업이 없습니다.");
                     break;
             }
+
+
             Log.d(TAG, "현재 수업 : " + now_class + "현재 교시 : " + period);
         }
         else{

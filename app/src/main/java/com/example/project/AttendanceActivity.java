@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.project.module.AccessDB;
@@ -40,9 +41,20 @@ import java.util.concurrent.ExecutionException;
 public class AttendanceActivity extends AppCompatActivity {
     private static String IP_ADDRESS = "rldjqdus05.cafe24.com";
     private static String TAG = "DEBUG";
-    Handler handler;
-    static int current_week;
+    int current_week;
     String attendanceData;
+    String user_ID;
+    String course_name;
+    Handler handler;
+    TextView currentClass;
+    TextView subjectText;
+    TextView attendanceRate;
+    TextView totalRate;
+    TextView current_attendance_status;
+    ListView attendanceList;
+    List<String> itemList;
+    ProgressBar attendance_rate_bar; ProgressBar total_rate_bar; int rate; int trate;
+    HashMap<String, String>[] dataHashMap; JsonParsing jsonParsing;
     private Runnable updateDateTime = new Runnable() {
         @Override
         public void run() {
@@ -55,28 +67,49 @@ public class AttendanceActivity extends AppCompatActivity {
         }
     };
     private void updateCurrentDateTime() throws ParseException {
-        /**  **/
-        SimpleDateFormat currentDate = new SimpleDateFormat("HH", Locale.getDefault());
         Date now = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(now);
-
-        String currentDateTime = currentDate.format(now);
-        int checkTime = Integer.parseInt(currentDateTime);
-
         current_week = cal.get(Calendar.WEEK_OF_YEAR) - 34;
+        currentClass.setText("현재 주차 : " + current_week + "주차");
+        attendance_rate_bar.setProgress(rate);
+        total_rate_bar.setProgress(trate);
+
+        for(int i = 0; i < jsonParsing.getIndex(); i++) {
+            if(current_week == Integer.parseInt(dataHashMap[i].get("attendance_week"))){
+                String attendance_check = dataHashMap[i].get("attendance_status");
+                if(attendance_check.equals("1")){
+                    attendance_check = "출석";
+                }
+                else if(attendance_check.equals("0")){
+                    attendance_check = "결석";
+                }
+                else if(attendance_check.equals("2")){
+                    attendance_check = "출결 등록전";
+                }
+                else{
+                    Log.d("버그", "출결 상태의 예외처리");
+                }
+                current_attendance_status.append( dataHashMap[i].get("attendance_week") + "주차   수업 일자 : " + dataHashMap[i].get("attendance_day")  + "  출석 여부 : " + attendance_check + "\n\n");
+            }
+            else if(i == 0){
+                current_attendance_status.setText("");
+            }
+        }
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance);
 
-        String user_ID = getIntent().getStringExtra("user_ID");
-        String course_name = getIntent().getStringExtra("course_name");
+        handler = new Handler();
+        handler.post(updateDateTime);
 
-        int attendance = 0;
+        user_ID = getIntent().getStringExtra("user_ID");
+        course_name = getIntent().getStringExtra("course_name");
 
         AccessDB task = new AccessDB(AttendanceActivity.this);
+        jsonParsing = new JsonParsing();
 
         try {
             attendanceData = task.execute("http://" + IP_ADDRESS + "/attendanceInfo.php", user_ID, course_name).get();
@@ -85,15 +118,16 @@ public class AttendanceActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
-        TextView subjectText = (TextView) findViewById(R.id.subjectText);
-        TextView currentClass = (TextView) findViewById(R.id.currentClass);
-        TextView attendanceRate = (TextView) findViewById(R.id.attendance_rate);
-        ListView attendanceList = findViewById(R.id.attendanceList);
-        List<String> itemList = new ArrayList<String>();
-        JsonParsing jsonParsing = new JsonParsing();
+        currentClass = (TextView) findViewById(R.id.currentClass);
+        subjectText = (TextView) findViewById(R.id.subjectText);
+        attendanceRate = (TextView) findViewById(R.id.attendance_rate);
+        totalRate = (TextView) findViewById(R.id.totalRate);
+        current_attendance_status = (TextView) findViewById(R.id.current_attendance_status);
+        attendanceList = findViewById(R.id.attendanceList);
+        itemList = new ArrayList<String>();
         String[] data = jsonParsing.parsingData(attendanceData);
-        HashMap<String, String>[] dataHashMap = new HashMap[jsonParsing.getIndex()];
+        dataHashMap = new HashMap[jsonParsing.getIndex()];
+
         try{
             for(int i = 0; i < jsonParsing.getIndex(); i++){
                 dataHashMap[i] = jsonParsing.paramMap(data[i]);
@@ -102,9 +136,8 @@ public class AttendanceActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-        handler = new Handler();
-        handler.post(updateDateTime);
-
+        int attendance = 0;
+        int nullAttendance = 0;
         subjectText.setText("교과목명 : " + dataHashMap[0].get("attendance_name"));
         for(int i = 0; i < jsonParsing.getIndex(); i++){
             String attendance_check = dataHashMap[i].get("attendance_status");
@@ -112,27 +145,35 @@ public class AttendanceActivity extends AppCompatActivity {
                 attendance_check = "출석";
                 attendance++;
             }
-            else if(attendance_check.equals("0") && Integer.parseInt(dataHashMap[i].get("attendance_week")) <= current_week)
+            else if(attendance_check.equals("0")){
                 attendance_check = "결석";
-            else
-                attendance_check = "출결 등록 이전";
-            itemList.add("강의주차 : " + dataHashMap[i].get("attendance_week") + "주차" + "   수업 교시 :" + dataHashMap[i].get("attendance_time") + "교시" + "\n출석여부 : " + attendance_check);
+            }
+            else if(attendance_check.equals("2")){
+                attendance_check = "출결 등록전";
+                nullAttendance++;
+            }
+            else{
+                Log.d("버그", "출결 상태의 예외처리");
+            }
+            itemList.add("강의주차 : " + dataHashMap[i].get("attendance_week") + "주차" + "   수업 교시 :" + dataHashMap[i].get("attendance_time") + "교시" + "\n수업 일자 :" + dataHashMap[i].get("attendance_day") + "   출석여부 : " + attendance_check);
         }
-
-        int rate = attendance*100/jsonParsing.getIndex();
-        attendanceRate.setText("출석률 : " + rate + "%    " + attendance + "/" + jsonParsing.getIndex()); // 출석률
-
-//        Log.d("asdf", String.valueOf(current_week));
-        currentClass.setText("현재 주차 : " + current_week + "주차");
+        rate = attendance*100/(jsonParsing.getIndex() - nullAttendance); // 출석률
+        trate = (jsonParsing.getIndex() - nullAttendance)*100/jsonParsing.getIndex();
+        attendanceRate.setText("출석률 : " + rate + "%    " + attendance + "/" + (jsonParsing.getIndex() - nullAttendance));
+        totalRate.setText("수업진행률 : " + trate + "%");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.listview_layout,itemList);
         attendanceList.setAdapter(adapter);
+
+        attendance_rate_bar = findViewById(R.id.attendance_rate_bar);
+        attendance_rate_bar.setMax(100);
+        total_rate_bar = findViewById(R.id.total_rate_bar);
+        total_rate_bar.setMax(100);
 
         Button return_button = findViewById(R.id.return_button);
         return_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AttendanceActivity.this, MainActivity.class);
                 AttendanceActivity.this.finish();
             }
         });

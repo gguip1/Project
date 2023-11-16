@@ -137,6 +137,10 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer {
 
     Handler handler = new Handler() {
         public void handleMessage(Message msg) {
+//            homeFragment.attendance_check.setEnabled(true);
+//            homeFragment.attendance_check.setTextColor(Color.parseColor("#FFFFFF"));
+//            homeFragment.attendance_check.setText("출석체크");
+//            homeFragment.attendance_check.setBackgroundResource(R.drawable.button_on_home_frag);
             // 비콘이 아무것도 없으면
 //            if(beaconList.isEmpty() || homeFragment.now_class.isEmpty()){
             if(beaconList.isEmpty()){
@@ -165,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer {
                     //textView.setText("ID : " + beacon.getId2() + " / " + "Distance : " + Double.parseDouble(String.format("%.3f", beacon.getDistance())) + "m\n");
                 }
             }
-            handler.sendEmptyMessageDelayed(0, 1000);
+            handler.sendEmptyMessageDelayed(0, 2500);
         }
     };
 }
