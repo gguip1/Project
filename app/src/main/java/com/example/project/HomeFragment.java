@@ -119,17 +119,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        if(resultData.equals(" \"sucess:1\"")){
+        if(resultData.equals("sucess:1")){
             resultMessage.setText("해당 수업은 이미 출석이 완료되었습니다.");
         }
-        else if(resultData.equals(" \"sucess:2\"")){
+        else if(resultData.equals("sucess:2")){
             resultMessage.setText("출석이 완료되었습니다.");
         }
-        else if(resultData.equals(" \"fail\"")){
+        else if(resultData.equals("fail")){
+            resultMessage.setText("출석체크 실패");
+        }
+        else if(resultData.equals("empty:4")){
             resultMessage.setText("출석체크 실패");
         }
         else{
-            resultMessage.setText(resultData);
+            resultMessage.setText("출석체크 실패");
         }
 //        Log.d("resultData", resultData);
 //        Log.d("resultData", now_class);

@@ -72,6 +72,7 @@
             android:fontFamily="@font/gmarketsansttfbold"
             android:gravity="center"
             android:text="출석체크"
+            android:textColor="@color/black"
             android:textAlignment="center"
             android:textSize="36dp"
             android:textStyle="bold"
@@ -98,11 +99,29 @@
             android:id="@+id/resultMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:fontFamily="@font/gmarketsansttflight"
+            android:text="출석체크를 합시다."
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="@+id/rectangle_2"
             app:layout_constraintEnd_toEndOf="@+id/rectangle_2"
             app:layout_constraintStart_toStartOf="@+id/rectangle_2"
             app:layout_constraintTop_toTopOf="@+id/rectangle_2" />
+
+        <TextView
+            android:id="@+id/inform"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:gravity="center"
+            android:text="출석 결과"
+            android:textAlignment="center"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/rectangle_2"
+            app:layout_constraintEnd_toEndOf="@+id/rectangle_2"
+            app:layout_constraintHorizontal_bias="0.037"
+            app:layout_constraintStart_toStartOf="@+id/rectangle_2"
+            app:layout_constraintTop_toTopOf="@+id/rectangle_2"
+            app:layout_constraintVertical_bias="0.056" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

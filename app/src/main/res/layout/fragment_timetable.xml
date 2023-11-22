@@ -20,6 +20,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/gmarketsansttfbold"
             android:gravity="center"
+            android:textColor="@color/black"
             android:text="시간표"
             android:textAlignment="center"
             android:textSize="36dp"

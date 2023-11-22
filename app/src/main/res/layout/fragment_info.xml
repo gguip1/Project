@@ -46,6 +46,7 @@
             android:gravity="center"
             android:text="내 정보"
             android:textSize="36dp"
+            android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
